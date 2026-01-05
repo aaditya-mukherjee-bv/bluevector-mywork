@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asset Details</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #f9f9f9;
+		}
+
+		.container {
+			width: 100vw;
+			max-width: 100vw;
+			margin: 20px;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			background-color: #f9f9f9;
+			color: #1a1a1a;
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			padding: 60px auto;
+		}
+
+		.card {
+			background: #ffffff;
+			width: 100%;
+			max-width: 600px;
+			border-radius: 8px;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			padding: 32px;
+			margin-bottom: 40px;
+		}
+
+		h2 {
+			margin-top: 0;
+			margin-bottom: 24px;
+			font-size: 18px;
+			font-weight: 600;
+			color: #000;
+		}
+
+		.details-grid {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		.detail-row {
+			display: grid;
+			grid-template-columns: 140px 1fr;
+			align-items: baseline;
+			font-size: 14px;
+			line-height: 1.5;
+		}
+
+		.detail-label {
+			color: #666666;
+			font-weight: 400;
+		}
+
+		.detail-value {
+			color: #1a1a1a;
+			font-weight: 500;
+		}
+
+		.separator {
+			height: 1px;
+			background-color: #eee;
+			margin: 8px 0;
+		}
+
+		.loading-state {
+			text-align: center;
+			color: #888;
+			padding: 20px;
+		}
+
+		.error-state {
+			color: #e53e3e;
+			text-align: center;
+			padding: 20px;
+		}
+
+		.badge {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 2px 8px; 
+			font-size: 12px; 
+			font-weight: 500; 
+			line-height: 1.5;
+			white-space: nowrap;
+			border-radius: 6px;
+			border: 1px solid transparent;
+		}
+
+		.badge-green {
+			background-color: #f0fdf4; 
+			color: #166534;           
+			border-color: #bbf7d0;    
+		}
+
+		.badge-blue {
+			background-color: #eff6ff; 
+			color: #1e40af;       
+			border-color: #dbeafe;    
+		}
+
+		.badge-red {
+			background-color: #fef2f2; 
+			color: #991b1b;         
+			border-color: #fecaca;   
+		}
+
+		.badge-gray {
+			background-color: #f9fafb;
+			color: #374151;           
+			border-color: #e5e7eb;     
+		}
+
+		.badge-yellow {
+			background-color: #fefce8; 
+			color: #854d0e;           
+			border-color: #fef08a;     
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="card">
+			<div id="content-area">
+				<h2>Details</h2>
+
+				<div class="details-grid" id="detailsList">
+					<div class="detail-row">
+						<span class="detail-label">ID</span>
+						<span class="detail-value" id="id">-</span>
+					</div>
+
+					<div class="detail-row">
+						<span class="detail-label">Status</span>
+						<span class="detail-value" id="status">-</span>
+					</div>
+
+					<div class="detail-row">
+						<span class="detail-label">Type</span>
+						<span class="detail-value" id="type">-</span>
+					</div>
+
+					<div class="separator"></div>
+
+					<div class="detail-row">
+						<span class="detail-label">Make</span>
+						<span class="detail-value" id="make">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Model</span>
+						<span class="detail-value" id="model">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Description</span>
+						<span class="detail-value" id="description">-</span>
+					</div>
+
+					<div class="separator"></div>
+
+					<div class="detail-row">
+						<span class="detail-label">Processor</span>
+						<span class="detail-value">
+							<span id="processor_type"></span> <span id="processor_ghz"></span>
+						</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Memory</span>
+						<span class="detail-value" id="memory_gbs">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Storage</span>
+						<span class="detail-value" id="storage_gbs">-</span>
+					</div>
+
+					<div class="separator"></div>
+
+					<div class="detail-row">
+						<span class="detail-label">Keycounts</span>
+						<span class="detail-value" id="capture_keycounts">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Keystrokes</span>
+						<span class="detail-value" id="capture_keystrokes">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Clipboard</span>
+						<span class="detail-value" id="capture_clipboard">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Screenshots</span>
+						<span class="detail-value" id="capture_screenshots">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Active Window</span>
+						<span class="detail-value" id="capture_active_window">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Running Processes</span>
+						<span class="detail-value" id="capture_running_processes">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Monitoring</span>
+						<span class="detail-value" id="record_monitoring">-</span>
+					</div>
+					<div class="detail-row">
+						<span class="detail-label">Frequency</span>
+						<span class="detail-value" id="recording_frequency">-</span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const serialNumber = getUrlParameter('serial_number');
+
+			(async () => {
+				try {
+					const response = await fetch('/preview-expression', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							expression_field: "invalid_error",
+							field_id: "740784af-e62c-417c-8734-f12d98bce707",
+							fields: {
+								serial_number: serialNumber
+							}
+						})
+					});
+
+					const data = await response.json();
+					console.log(data);
+
+					let record = null;
+					if (data && data.result) {
+						let arr = null;
+						if (typeof data.result === 'string') {
+							try {
+								arr = JSON.parse(data.result);
+							} catch (e) {
+								console.error('Failed to parse result:', e);
+							}
+						} else if (Array.isArray(data.result)) {
+							arr = data.result;
+						}
+						if (Array.isArray(arr) && arr.length > 0) {
+							record = arr[0];
+						}
+					}
+
+					const container = document.getElementById('content-area');
+
+					if (record) {
+						const fields = [
+							'id', 'type', 'capture_keycounts', 'capture_keystrokes', 'capture_clipboard', 'capture_screenshots',
+							'capture_active_window', 'capture_running_processes', 'record_monitoring', 'recording_frequency',
+							'make', 'model', 'description', 'status', 'processor_ghz', 'processor_type', 'storage_gbs', 'memory_gbs'
+						];
+
+						const badgeConfig = {
+							'status': {
+								'Active': 'badge-green',
+								'Inactive': 'badge-gray',
+								'Pending': 'badge-yellow',
+								'Error': 'badge-red'
+							},
+							'type': {
+								'Laptop': 'badge-blue',
+								'Desktop': 'badge-gray',
+								'Server': 'badge-red'
+							},
+							'record_monitoring': {
+								'1': 'badge-green',
+								'0': 'badge-red',
+								'Enabled': 'badge-green',
+								'Disabled': 'badge-gray'
+							}
+						};
+
+						fields.forEach(key => {
+							const el = document.getElementById(key);
+							if (el) {
+								let val = record[key];
+								if (val === undefined || val === null || val === "") {
+									el.textContent = "-";
+									el.className = "detail-value"; 
+									return; 
+								}
+
+								const valString = String(val);
+
+								el.textContent = valString;
+
+								if (badgeConfig[key]) {
+									el.className = "detail-value badge"; 
+									const colorClass = badgeConfig[key][valString] || 'badge-gray';
+									
+									el.classList.add(colorClass);
+								}
+							}
+						});
+
+					} else {
+						container.innerHTML = `
+							<h2>Details</h2>
+							<div style="text-align: center; color: #666; margin-top: 40px;">
+								<p>No asset found for Serial Number: <strong>${serialNumber || 'N/A'}</strong></p>
+							</div>
+						`;
+					}
+
+				}
+				catch (err) {
+					console.error('Error fetching or displaying data:', err);
+					const container = document.getElementById('content-area');
+					container.innerHTML = `
+						<h2>Error</h2>
+						<div class="error-state">
+							Unable to load asset details. Please try again.
+						</div>
+					`;
+				}
+			})();
+		});
+
+		function getUrlParameter(name) {
+			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+			var regex = new RegExp('[\?&]' + name + '=([^&#]*)');
+			var results = regex.exec(window.location.search);
+			return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+		}
+	</script>
+</body>
+
+</html>
