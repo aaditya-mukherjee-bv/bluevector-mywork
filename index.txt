@@ -1,0 +1,340 @@
+<body id="ipig">
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Asset Details
+  </title>
+  <div class="container">
+    <div class="card">
+      <div id="content-area">
+        <h2>Details
+        </h2>
+        <div id="detailsList" class="details-grid">
+          <div class="detail-row">
+            <span class="detail-label">ID</span>
+            <span id="id" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Status</span>
+            <span id="status" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Type</span>
+            <span id="type" class="detail-value">-</span>
+          </div>
+          <div class="separator">
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Make</span>
+            <span id="make" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Model</span>
+            <span id="model" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Description</span>
+            <span id="description" class="detail-value">-</span>
+          </div>
+          <div class="separator">
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Processor</span>
+            <span class="detail-value"><span id="processor_type"></span> <span id="processor_ghz"></span></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Memory</span>
+            <span id="memory_gbs" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Storage</span>
+            <span id="storage_gbs" class="detail-value">-</span>
+          </div>
+          <div class="separator">
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Keycounts</span>
+            <span id="capture_keycounts" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Keystrokes</span>
+            <span id="capture_keystrokes" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Clipboard</span>
+            <span id="capture_clipboard" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Screenshots</span>
+            <span id="capture_screenshots" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Active Window</span>
+            <span id="capture_active_window" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Running Processes</span>
+            <span id="capture_running_processes" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Monitoring</span>
+            <span id="record_monitoring" class="detail-value">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Frequency</span>
+            <span id="recording_frequency" class="detail-value">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const style = document.createElement('style');
+    style.innerHTML = `.badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 2px 8px; 
+font-size: 12px; 
+font-weight: 500; 
+line-height: 1.5;
+white-space: nowrap;
+border-radius: 6px;
+border: 1px solid transparent;
+}
+.badge-green {
+background-color: #f0fdf4; 
+color: #166534;           
+border-color: #bbf7d0;    
+}
+.badge-blue {
+background-color: #eff6ff; 
+color: #1e40af;       
+border-color: #dbeafe;    
+}
+.badge-red {
+background-color: #fef2f2; 
+color: #991b1b;         
+border-color: #fecaca;   
+}
+.badge-gray {
+background-color: #f9fafb;
+color: #374151;           
+border-color: #e5e7eb;     
+}
+.badge-yellow {
+background-color: #fefce8; 
+color: #854d0e;           
+border-color: #fef08a;     
+}
+`;
+    document.head.appendChild(style);
+    document.addEventListener("DOMContentLoaded", function () {
+      const serialNumber = getUrlParameter('serial_number');
+      (async () => {
+        try {
+          const response = await fetch('/preview-expression', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+            ,
+            body: JSON.stringify({
+              expression_field: "invalid_error",
+              field_id: "740784af-e62c-417c-8734-f12d98bce707",
+              fields: {
+                serial_number: serialNumber
+              }
+            }
+                                )
+          }
+                                      );
+          const data = await response.json();
+          console.log(data);
+          let record = null;
+          if (data && data.result) {
+            let arr = null;
+            if (typeof data.result === 'string') {
+              try {
+                arr = JSON.parse(data.result);
+              }
+              catch (e) {
+                console.error('Failed to parse result:', e);
+              }
+            }
+            else if (Array.isArray(data.result)) {
+              arr = data.result;
+            }
+            if (Array.isArray(arr) && arr.length > 0) {
+              record = arr[0];
+            }
+          }
+          const container = document.getElementById('content-area');
+          if (record) {
+            const fields = [
+              'id', 'type', 'capture_keycounts', 'capture_keystrokes', 'capture_clipboard', 'capture_screenshots',
+              'capture_active_window', 'capture_running_processes', 'record_monitoring', 'recording_frequency',
+              'make', 'model', 'description', 'status', 'processor_ghz', 'processor_type', 'storage_gbs', 'memory_gbs'
+            ];
+            const badgeConfig = {
+              'status': {
+                'Active': 'badge-green',
+                'Inactive': 'badge-gray',
+                'Pending': 'badge-yellow',
+                'Error': 'badge-red'
+              }
+              ,
+              'type': {
+                'Laptop': 'badge-blue',
+                'Desktop': 'badge-gray',
+                'Server': 'badge-red'
+              }
+              ,
+              'record_monitoring': {
+                '1': 'badge-green',
+                '0': 'badge-red',
+                'Enabled': 'badge-green',
+                'Disabled': 'badge-gray'
+              }
+            };
+            fields.forEach(key => {
+              const el = document.getElementById(key);
+              if (el) {
+                let val = record[key];
+                if (val === undefined || val === null || val === "") {
+                  el.textContent = "-";
+                  el.className = "detail-value";
+                  return;
+                }
+                const valString = String(val);
+                el.textContent = valString;
+                if (badgeConfig[key]) {
+                  el.className = "detail-value badge";
+                  const colorClass = badgeConfig[key][valString] || 'badge-gray';
+                  el.classList.add(colorClass);
+                }
+              }
+            }
+                          );
+          }
+          else {
+            container.innerHTML = `
+<h2>Details</h2>
+<div style="text-align: center; color: #666; margin-top: 40px;">
+<p>No asset found for Serial Number: <strong>${serialNumber || 'N/A'}
+    </strong></p>
+    </div>
+`;
+          }
+        }
+        catch (err) {
+          console.error('Error fetching or displaying data:', err);
+          const container = document.getElementById('content-area');
+          container.innerHTML = `
+<h2>Error</h2>
+<div class="error-state">
+Unable to load asset details. Please try again.
+    </div>
+`;
+        }
+      }
+      )();
+    }
+                             );
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(window.location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+  </script>
+</body>
+<style nonce="-5JUxVjSSWLuuPcRtkH8jKbYg_kRnnjo">* {
+  box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+  }
+  *{
+    box-sizing:border-box;
+  }
+  body{
+    background-color:rgb(249, 249, 249);
+    margin-bottom:0px;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:0px;
+  }
+  .container{
+    background-color:rgb(249, 249, 249);
+    color:rgb(26, 26, 26);
+    display:flex;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    justify-content:center;
+    margin-bottom:20px;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:20px;
+    max-width:100vw;
+    min-height:100vh;
+    width:100vw;
+  }
+  .card{
+    background-attachment:initial;
+    background-clip:initial;
+    background-color:rgb(255, 255, 255);
+    background-image:initial;
+    background-origin:initial;
+    background-position-x:initial;
+    background-position-y:initial;
+    background-repeat:initial;
+    background-size:initial;
+    border-bottom-left-radius:8px;
+    border-bottom-right-radius:8px;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 3px;
+    margin-bottom:40px;
+    max-width:600px;
+    padding-bottom:32px;
+    padding-left:32px;
+    padding-right:32px;
+    padding-top:32px;
+    width:100%;
+  }
+  h2{
+    color:rgb(0, 0, 0);
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:24px;
+    margin-top:0px;
+  }
+  .details-grid{
+    column-gap:16px;
+    display:flex;
+    flex-direction:column;
+    row-gap:16px;
+  }
+  .detail-row{
+    align-items:baseline;
+    display:grid;
+    font-size:14px;
+    grid-template-columns:140px 1fr;
+    line-height:1.5;
+  }
+  .detail-label{
+    color:rgb(102, 102, 102);
+    font-weight:400;
+  }
+  .detail-value{
+    color:rgb(26, 26, 26);
+    font-weight:500;
+  }
+  .separator{
+    background-color:rgb(238, 238, 238);
+    height:1px;
+    margin-bottom:8px;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:8px;
+  }
+</style>
