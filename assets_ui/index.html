@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Asset Details</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #f9f9f9;
+		}
+
+		.container {
+			width: 100vw;
+			max-width: 100vw;
+			margin: 20px;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+			background-color: #f9f9f9;
+			color: #1a1a1a;
+			display: flex;
+			justify-content: center;
+			padding: 60px;
+		}
+
+		.card {
+			background: #ffffff;
+			border-radius: 10px;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			padding: 32px;
+			margin: 5px;
+		}
+
+		h2 {
+			margin-top: 0;
+			margin-bottom: 24px;
+			font-size: 18px;
+			font-weight: 600;
+			color: #000;
+		}
+
+		.details-grid {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		.detail-row {
+			display: grid;
+			grid-template-columns: 140px 1fr;
+			align-items: center;
+			font-size: 14px;
+			line-height: 1.5;
+		}
+
+		.detail-label {
+			color: #666666;
+			font-weight: 400;
+		}
+
+		.detail-value {
+			color: #1a1a1a;
+			font-weight: 500;
+		}
+
+		.separator {
+			height: 1px;
+			background-color: #eee;
+			margin: 8px 0;
+		}
+
+		.loading-state {
+			text-align: center;
+			color: #888;
+			padding: 20px;
+		}
+
+		.error-state {
+			color: #e53e3e;
+			text-align: center;
+			padding: 20px;
+		}
+
+		.section-header {
+			font-size: 16px;
+			font-weight: 600;
+			margin-top: 16px;
+			margin-bottom: 8px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: #333;
+		}
+
+		.param-label {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+
+		.copy-container {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			position: relative;
+		}
+		.copy-id-btn {
+			opacity: 0;
+			transition: opacity 0.2s;
+		}
+		.copy-container:hover .copy-id-btn {
+			opacity: 1;
+		}
+
+		.cards-grid {
+		  display: grid;
+		  grid-template-columns: 1fr 1fr; 
+		  gap: 32px; 
+		  width: 100%;
+		  max-width: 1200px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="cards-grid">
+			<div class="card">
+				<div id="content-area">
+					<h2>Asset Details</h2>
+
+					<div class="details-grid" id="detailsList">
+						<div class="section-header">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+							General Information
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+								<span class="detail-label">ID</span>
+							</div>
+							<div class="copy-container">
+								<span class="detail-value" id="id">-</span>
+								<div class="copy-id-btn" id="copy-id-btn" style="cursor: pointer;">
+									<span class="copy-icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-copy-icon lucide-clipboard-copy"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></svg>
+									</span>
+									<span class="copied-icon" style="display:none;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="detail-row">
+							<div class="param-label"> 
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-no-axes-combined-icon lucide-chart-no-axes-combined"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg>
+								<span class="detail-label">Status</span>
+							</div>
+							<div>
+								<span class="detail-value" id="status">-</span>
+							</div>
+						</div>
+
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-type-icon lucide-file-type"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M11 18h2"/><path d="M12 12v6"/><path d="M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5"/></svg>
+								<span class="detail-label">Type</span>
+							</div>
+							<div>
+								<span class="detail-value" id="type">-</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">		
+				<div id="content-area">
+					<div class="details-grid" id="detailsList">
+						<!-- <div class="separator"></div> -->
+
+						<div class="section-header">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-device-icon lucide-device"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+							Device Identification
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg>
+								<span class="detail-label">Make</span>
+							</div>
+							<div>
+								<span class="detail-value" id="make">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-puzzle-icon lucide-puzzle"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>
+								<span class="detail-label">Model</span>
+							</div>
+							<div>
+								<span class="detail-value" id="model">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-library-big-icon lucide-library-big"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
+								<span class="detail-label">Description</span>
+							</div>
+							<div>
+								<span class="detail-value" id="description">-</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">		
+				<div id="content-area">
+					<div class="details-grid" id="detailsList">
+						<!-- <div class="separator"></div> -->
+
+						<div class="section-header">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu-icon lucide-cpu"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>
+							Hardware Specifications
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microchip-icon lucide-microchip"><path d="M10 12h4"/><path d="M10 17h4"/><path d="M10 7h4"/><path d="M18 12h2"/><path d="M18 18h2"/><path d="M18 6h2"/><path d="M4 12h2"/><path d="M4 18h2"/><path d="M4 6h2"/><rect x="6" y="2" width="12" height="20" rx="2"/></svg>
+								<span class="detail-label">Processor</span>
+							</div>
+							<span class="detail-value">
+								<span id="processor_type"></span> <span id="processor_ghz"></span>
+							</span>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-memory-stick-icon lucide-memory-stick"><path d="M12 12v-2"/><path d="M12 18v-2"/><path d="M16 12v-2"/><path d="M16 18v-2"/><path d="M2 11h1.5"/><path d="M20 18v-2"/><path d="M20.5 11H22"/><path d="M4 18v-2"/><path d="M8 12v-2"/><path d="M8 18v-2"/><rect x="2" y="6" width="20" height="10" rx="2"/></svg>
+								<span class="detail-label">Memory</span>
+							</div>
+							<div>
+								<span class="detail-value" id="memory_gbs">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive-icon lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
+								<span class="detail-label">Storage</span>
+							</div>
+							<div>
+								<span class="detail-value" id="storage_gbs">-</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">		
+				<div id="content-area">
+					<div class="details-grid" id="detailsList">
+						<!-- <div class="separator"></div> -->
+
+						<div class="section-header">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-line-icon lucide-chart-line"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+							Telemetry & Monitoring
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-asterisk-icon lucide-square-asterisk"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8.5 14 7-4"/><path d="m8.5 10 7 4"/></svg>
+								<span class="detail-label">Keystrokes</span>
+							</div>
+							<div>
+								<span class="detail-value" id="capture_keystrokes">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-icon lucide-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+								<span class="detail-label">Clipboard</span>
+							</div>
+							<div>
+								<span class="detail-value" id="capture_clipboard">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallpaper-icon lucide-wallpaper"><path d="M12 17v4"/><path d="M8 21h8"/><path d="m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15"/><circle cx="8" cy="9" r="2"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+								<span class="detail-label">Screenshots</span>
+							</div>
+							<div>
+								<span class="detail-value" id="capture_screenshots">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-app-window-icon lucide-app-window"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>
+								<span class="detail-label">Active Window</span>
+							</div>
+							<div>
+								<span class="detail-value" id="capture_active_window">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-repeat2-icon lucide-repeat-2"><path d="m2 9 3-3 3 3"/><path d="M13 18H7a2 2 0 0 1-2-2V6"/><path d="m22 15-3 3-3-3"/><path d="M11 6h6a2 2 0 0 1 2 2v10"/></svg>
+								<span class="detail-label">Running Processes</span>
+							</div>
+							<div>
+								<span class="detail-value" id="capture_running_processes">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-cloud-icon lucide-monitor-cloud"><path d="M11 13a3 3 0 1 1 2.83-4H14a2 2 0 0 1 0 4z"/><path d="M12 17v4"/><path d="M8 21h8"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+								<span class="detail-label">Monitoring</span>
+							</div>
+							<div>
+								<span class="detail-value" id="record_monitoring">-</span>
+							</div>
+						</div>
+						<div class="detail-row">
+							<div class="param-label">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+								<span class="detail-label">Frequency</span>
+							</div>
+							<div>
+								<span class="detail-value" id="recording_frequency">-</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const style = document.createElement("style");
+		   style.innerHTML = `
+		   .badge {
+			   display: inline-flex;
+			   align-items: center;
+			   justify-content: center;
+			   padding: 0.25rem 0.75rem;
+			   font-size: 0.75rem;
+			   font-weight: 600;
+			   line-height: 1.25rem;
+			   white-space: nowrap;
+			   border-radius: 9999px;
+			   border-width: 1px;
+			   border-style: solid;
+			   border-color: transparent;
+			   letter-spacing: 0.01em;
+			   text-transform: none;
+			   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.03);
+			   transition: background 0.2s, color 0.2s;
+		   }
+		   .badge-green {
+			   background-color: #dcfce7;
+			   color: #166534;
+			   border-color: #bbf7d0;
+		   }
+		   .badge-blue {
+			   background-color: #dbeafe;
+			   color: #1d4ed8;
+			   border-color: #60a5fa;
+		   }
+		   .badge-red {
+			   background-color: #fee2e2;
+			   color: #b91c1c;
+			   border-color: #fca5a5;
+		   }
+		   .badge-gray {
+			   background-color: #f3f4f6;
+			   color: #374151;
+			   border-color: #d1d5db;
+		   }
+		   .badge-yellow {
+			   background-color: #fef9c3;
+			   color: #a16207;
+			   border-color: #fde68a;
+		   }
+		   `;
+
+		   document.head.appendChild(style);
+
+		   // Copy feedback for ID
+		   document.addEventListener('DOMContentLoaded', function () {
+			   var copyBtn = document.getElementById('copy-id-btn');
+			   if (copyBtn) {
+				   copyBtn.onclick = function () {
+					   var idText = document.getElementById('id').textContent;
+					   navigator.clipboard.writeText(idText).then(() => {
+						   var copyIcon = copyBtn.querySelector('.copy-icon');
+						   var copiedIcon = copyBtn.querySelector('.copied-icon');
+						   if (copyIcon && copiedIcon) {
+							   copyIcon.style.display = 'none';
+							   copiedIcon.style.display = 'inline';
+							   setTimeout(function () {
+								   copyIcon.style.display = 'inline';
+								   copiedIcon.style.display = 'none';
+							   }, 1500);
+						   }
+					   });
+				   };
+			   }
+		   });
+		   document.addEventListener("DOMContentLoaded", function () {
+			   const serialNumber = getUrlParameter('serial_number');
+
+			   (async () => {
+				   // Fallback data
+				   const fallbackData = [
+					   {
+						   "id": "24f581f8-1d21-554b-86e9-72d1a2f1a5d1",
+						   "type": "Computer",
+						   "capture_keycounts": 1,
+						   "capture_keystrokes": 0,
+						   "capture_clipboard": 1,
+						   "capture_screenshots": 1,
+						   "capture_active_window": 1,
+						   "capture_running_processes": 0,
+						   "record_monitoring": 0,
+						   "recording_frequency": 3600,
+						   "make": "Apple",
+						   "model": "Macbook Pro",
+						   "description": "Apple M2Pro",
+						   "status": "Active",
+						   "processor_ghz": "",
+						   "processor_type": "M2 Pro",
+						   "storage_gbs": "512",
+						   "memory_gbs": "16"
+					   }
+				   ];
+
+				   let record = null;
+				   try {
+					   const response = await fetch('/preview-expression', {
+						   method: 'POST',
+						   headers: { 'Content-Type': 'application/json' },
+						   body: JSON.stringify({
+							   expression_field: "invalid_error",
+							   field_id: "740784af-e62c-417c-8734-f12d98bce707",
+							   fields: {
+								   serial_number: serialNumber
+							   }
+						   })
+					   });
+					   const data = await response.json();
+					   if (data && data.result) {
+						   let arr = null;
+						   if (typeof data.result === 'string') {
+							   try {
+								   arr = JSON.parse(data.result);
+							   } catch (e) {
+								   console.error('Failed to parse result:', e);
+							   }
+						   } else if (Array.isArray(data.result)) {
+							   arr = data.result;
+						   }
+						   if (Array.isArray(arr) && arr.length > 0) {
+							   record = arr[0];
+						   }
+					   }
+				   } catch (err) {
+					   console.error('Error fetching or displaying data:', err);
+				   }
+				   // Use fallback if no record found
+				   if (!record) {
+					   record = fallbackData[0];
+				   }
+
+				   const container = document.getElementById('content-area');
+
+				   if (record) {
+					   const fields = [
+						   'id', 'type', 'capture_keycounts', 'capture_keystrokes', 'capture_clipboard', 'capture_screenshots',
+						   'capture_active_window', 'capture_running_processes', 'record_monitoring', 'recording_frequency',
+						   'make', 'model', 'description', 'status', 'processor_ghz', 'processor_type', 'storage_gbs', 'memory_gbs'
+					   ];
+
+					   const badgeConfig = {
+						   'status': {
+							   'Active': 'badge-green',
+							   'Inactive': 'badge-gray',
+							   'Pending': 'badge-yellow',
+							   'Error': 'badge-red'
+						   },
+						   'type': {
+							   'Laptop': 'badge-blue',
+							   'Desktop': 'badge-gray',
+							   'Server': 'badge-red',
+							   'Computer': 'badge-blue'
+						   },
+						   'record_monitoring': {
+							   '1': 'badge-green',
+							   '0': 'badge-red',
+							   'Enabled': 'badge-green',
+							   'Disabled': 'badge-gray'
+						   },
+						   'capture_keycounts': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'capture_keystrokes': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'capture_clipboard': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'capture_screenshots': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'capture_active_window': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'capture_running_processes': {
+							   '1': 'badge-green',
+							   '0': 'badge-gray',
+						   },
+						   'recording_frequency': {
+							   '3600': 'badge-blue',
+							   '1800': 'badge-yellow',
+							   '0': 'badge-gray',
+						   },
+						   'make': {
+							   'Apple': 'badge-blue',
+							   'Dell': 'badge-gray',
+							   'HP': 'badge-yellow',
+							   'Lenovo': 'badge-red',
+						   },
+						   'model': {},
+						   'description': {},
+						   'processor_ghz': {},
+						   'processor_type': {},
+						   'storage_gbs': {
+							   '512': 'badge-blue',
+							   '256': 'badge-yellow',
+							   '128': 'badge-red',
+						   },
+						   'memory_gbs': {
+							   '16': 'badge-blue',
+							   '8': 'badge-yellow',
+							   '4': 'badge-red',
+						   }
+					   };
+
+					   fields.forEach(key => {
+						   const el = document.getElementById(key);
+						   if (el) {
+							   let val = record[key];
+							   if (val === undefined || val === null || val === "") {
+								   el.textContent = "-";
+								   el.className = "detail-value";
+								   return;
+							   }
+
+							   const valString = String(val);
+							   el.textContent = valString;
+
+							   if (badgeConfig[key]) {
+								   el.className = "detail-value badge";
+								   const colorClass = badgeConfig[key][valString] || 'badge-gray';
+								   el.classList.add(colorClass);
+							   } else {
+								   el.className = "detail-value";
+							   }
+						   }
+					   });
+
+				   } else {
+					   container.innerHTML = `
+						   <h2>Details</h2>
+						   <div style="text-align: center; color: #666; margin-top: 40px;">
+							   <p>No asset found for Serial Number: <strong>${serialNumber || 'N/A'}</strong></p>
+						   </div>
+					   `;
+				   }
+			   })();
+		   });
+
+		function getUrlParameter(name) {
+			name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+			var regex = new RegExp('[\?&]' + name + '=([^&#]*)');
+			var results = regex.exec(window.location.search);
+			return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+		}
+	</script>
+</body>
+
+</html>
