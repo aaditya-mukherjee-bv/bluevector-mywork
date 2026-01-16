@@ -40,20 +40,10 @@
 			padding: 32px;
 			margin: 0;               /* Was 1px */
 			
-			/* ADD: Borders for the grid effect */
-			border-right: 1px solid #e5e7eb;
-			border-bottom: 1px solid #e5e7eb;
+			   /* Removed grid borders */
 		}
 
-		.card:nth-child(2), 
-		.card:nth-child(4) {
-			border-right: none;
-		}
 
-		.card:nth-child(3), 
-		.card:nth-child(4) {
-			border-bottom: none;
-		}
 
 		h2 {
 			margin-top: 0;
@@ -185,15 +175,11 @@
 				grid-template-columns: 1fr !important; /* Stack vertically */
 			}
 			
-			/* Reset borders for mobile stack */
-			.card {
-				border-right: none !important;
-				border-bottom: 1px solid #e5e7eb !important;
-			}
-			/* Remove bottom border from the very last card only */
-			.card:last-child {
-				border-bottom: none !important;
-			}
+			   /* No card borders for mobile either */
+			   .card {
+				   border-right: none !important;
+				   border-bottom: none !important;
+			   }
 
 			.container {
 				padding: 20px;
@@ -210,10 +196,13 @@
 
 <body>
 	<div class="container">
-		<div class="unified-card">
-			<div class="card-main-header">
-				<h2>Asset Details</h2>
-			</div>
+		   <div class="unified-card">
+			   <div class="card-main-header">
+				   <div>
+					   <h2 style="margin-bottom: 4px;">Asset Details</h2>
+					   <div style="color: #6b7280; font-size: 15px; font-weight: 400; margin-top: 2px;">This section provides a comprehensive overview of the asset, including identification, hardware specifications, and telemetry monitoring details.</div>
+				   </div>
+			   </div>
 			<div class="cards-grid">
 				<div class="card">
 					<div id="content-area">
@@ -224,17 +213,17 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card-icon lucide-id-card"><path d="M16 10h2"/><path d="M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>
 									<span class="detail-label">ID</span>
 								</div>
 								<div class="copy-container">
 									<span class="detail-value" id="id">-</span>
 									<div class="copy-id-btn" id="copy-id-btn" style="cursor: pointer;">
 										<span class="copy-icon">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-copy-icon lucide-clipboard-copy"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
 										</span>
 										<span class="copied-icon" style="display:none;">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>
 										</span>
 									</div>
 								</div>
@@ -242,7 +231,7 @@
 
 							<div class="detail-row">
 								<div class="param-label"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-no-axes-combined-icon lucide-chart-no-axes-combined"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-no-axes-combined-icon lucide-chart-no-axes-combined"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></svg>
 									<span class="detail-label">Status</span>
 								</div>
 								<div>
@@ -252,7 +241,7 @@
 
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-type-icon lucide-file-type"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M11 18h2"/><path d="M12 12v6"/><path d="M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-type-icon lucide-file-type"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M11 18h2"/><path d="M12 12v6"/><path d="M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5"/></svg>
 									<span class="detail-label">Type</span>
 								</div>
 								<div>
@@ -273,7 +262,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg>
 									<span class="detail-label">Make</span>
 								</div>
 								<div>
@@ -282,7 +271,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-puzzle-icon lucide-puzzle"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-puzzle-icon lucide-puzzle"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>
 									<span class="detail-label">Model</span>
 								</div>
 								<div>
@@ -291,7 +280,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-library-big-icon lucide-library-big"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-library-big-icon lucide-library-big"><rect width="8" height="18" x="3" y="3" rx="1"/><path d="M7 3v18"/><path d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"/></svg>
 									<span class="detail-label">Description</span>
 								</div>
 								<div>
@@ -312,7 +301,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microchip-icon lucide-microchip"><path d="M10 12h4"/><path d="M10 17h4"/><path d="M10 7h4"/><path d="M18 12h2"/><path d="M18 18h2"/><path d="M18 6h2"/><path d="M4 12h2"/><path d="M4 18h2"/><path d="M4 6h2"/><rect x="6" y="2" width="12" height="20" rx="2"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-microchip-icon lucide-microchip"><path d="M10 12h4"/><path d="M10 17h4"/><path d="M10 7h4"/><path d="M18 12h2"/><path d="M18 18h2"/><path d="M18 6h2"/><path d="M4 12h2"/><path d="M4 18h2"/><path d="M4 6h2"/><rect x="6" y="2" width="12" height="20" rx="2"/></svg>
 									<span class="detail-label">Processor</span>
 								</div>
 								<span class="detail-value">
@@ -321,7 +310,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-memory-stick-icon lucide-memory-stick"><path d="M12 12v-2"/><path d="M12 18v-2"/><path d="M16 12v-2"/><path d="M16 18v-2"/><path d="M2 11h1.5"/><path d="M20 18v-2"/><path d="M20.5 11H22"/><path d="M4 18v-2"/><path d="M8 12v-2"/><path d="M8 18v-2"/><rect x="2" y="6" width="20" height="10" rx="2"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-memory-stick-icon lucide-memory-stick"><path d="M12 12v-2"/><path d="M12 18v-2"/><path d="M16 12v-2"/><path d="M16 18v-2"/><path d="M2 11h1.5"/><path d="M20 18v-2"/><path d="M20.5 11H22"/><path d="M4 18v-2"/><path d="M8 12v-2"/><path d="M8 18v-2"/><rect x="2" y="6" width="20" height="10" rx="2"/></svg>
 									<span class="detail-label">Memory</span>
 								</div>
 								<div>
@@ -330,7 +319,7 @@
 							</div>
 							<div class="detail-row">
 								<div class="param-label">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive-icon lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hard-drive-icon lucide-hard-drive"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg>
 									<span class="detail-label">Storage</span>
 								</div>
 								<div>
@@ -353,67 +342,67 @@
 								<div class="monitor-col">
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-asterisk-icon lucide-square-asterisk"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8.5 14 7-4"/><path d="m8.5 10 7 4"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-asterisk-icon lucide-square-asterisk"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 8v8"/><path d="m8.5 14 7-4"/><path d="m8.5 10 7 4"/></svg>
 											<span class="detail-label">Keystrokes</span>
 										</div>
 										<div>
-											<span class="detail-value" id="capture_keystrokes">-</span>
+											<span class="detail-value telemetry-metric" id="capture_keystrokes">-</span>
 										</div>
 									</div>
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-icon lucide-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+											<svg xmlns="http://www.w3.org/200/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-icon lucide-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
 											<span class="detail-label">Clipboard</span>
 										</div>
 										<div>
-											<span class="detail-value" id="capture_clipboard">-</span>
+											<span class="detail-value telemetry-metric" id="capture_clipboard">-</span>
 										</div>
 									</div>
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallpaper-icon lucide-wallpaper"><path d="M12 17v4"/><path d="M8 21h8"/><path d="m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15"/><circle cx="8" cy="9" r="2"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallpaper-icon lucide-wallpaper"><path d="M12 17v4"/><path d="M8 21h8"/><path d="m9 17 6.1-6.1a2 2 0 0 1 2.81.01L22 15"/><circle cx="8" cy="9" r="2"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
 											<span class="detail-label">Screenshots</span>
 										</div>
 										<div>
-											<span class="detail-value" id="capture_screenshots">-</span>
+											<span class="detail-value telemetry-metric" id="capture_screenshots">-</span>
 										</div>
 									</div>
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-app-window-icon lucide-app-window"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-app-window-icon lucide-app-window"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>
 											<span class="detail-label">Active Window</span>
 										</div>
 										<div>
-											<span class="detail-value" id="capture_active_window">-</span>
+											<span class="detail-value telemetry-metric" id="capture_active_window">-</span>
 										</div>
 									</div>
 								</div>
 								<div class="monitor-col">
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-repeat2-icon lucide-repeat-2"><path d="m2 9 3-3 3 3"/><path d="M13 18H7a2 2 0 0 1-2-2V6"/><path d="m22 15-3 3-3-3"/><path d="M11 6h6a2 2 0 0 1 2 2v10"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-repeat2-icon lucide-repeat-2"><path d="m2 9 3-3 3 3"/><path d="M13 18H7a2 2 0 0 1-2-2V6"/><path d="m22 15-3 3-3-3"/><path d="M11 6h6a2 2 0 0 1 2 2v10"/></svg>
 											<span class="detail-label">Running Processes</span>
 										</div>
 										<div>
-											<span class="detail-value" id="capture_running_processes">-</span>
+											<span class="detail-value telemetry-metric" id="capture_running_processes">-</span>
 										</div>
 									</div>
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-cloud-icon lucide-monitor-cloud"><path d="M11 13a3 3 0 1 1 2.83-4H14a2 2 0 0 1 0 4z"/><path d="M12 17v4"/><path d="M8 21h8"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-monitor-cloud-icon lucide-monitor-cloud"><path d="M11 13a3 3 0 1 1 2.83-4H14a2 2 0 0 1 0 4z"/><path d="M12 17v4"/><path d="M8 21h8"/><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
 											<span class="detail-label">Monitoring</span>
 										</div>
 										<div>
-											<span class="detail-value" id="record_monitoring">-</span>
+											<span class="detail-value telemetry-metric" id="record_monitoring">-</span>
 										</div>
 									</div>
 									<div class="detail-row">
 										<div class="param-label">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 											<span class="detail-label">Frequency</span>
 										</div>
 										<div>
-											<span class="detail-value" id="recording_frequency">-</span>
+											<span class="detail-value telemetry-metric" id="recording_frequency">-</span>
 										</div>
 									</div>
 								</div>
@@ -426,6 +415,16 @@
 	<script>
 		const style = document.createElement("style");
 		   style.innerHTML = `
+		   .telemetry-metric {
+			   background: #f3f4f6;
+			   border-radius: 6px;
+			   padding: 2px 10px;
+			   margin-left: 2px;
+			   margin-right: 2px;
+			   display: inline-block;
+			   color: #333a40;
+			   font-weight: 500;
+		   }
 		   .badge {
 			   display: inline-flex;
 			   align-items: center;
@@ -581,60 +580,11 @@
 							   'Server': 'badge-red',
 							   'Computer': 'badge-blue'
 						   },
-						   'record_monitoring': {
-							   '1': 'badge-green',
-							   '0': 'badge-red',
-							   'Enabled': 'badge-green',
-							   'Disabled': 'badge-gray'
-						   },
-						   'capture_keycounts': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'capture_keystrokes': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'capture_clipboard': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'capture_screenshots': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'capture_active_window': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'capture_running_processes': {
-							   '1': 'badge-green',
-							   '0': 'badge-gray',
-						   },
-						   'recording_frequency': {
-							   '3600': 'badge-blue',
-							   '1800': 'badge-yellow',
-							   '0': 'badge-gray',
-						   },
 						   'make': {
 							   'Apple': 'badge-blue',
 							   'Dell': 'badge-gray',
 							   'HP': 'badge-yellow',
 							   'Lenovo': 'badge-red',
-						   },
-						   'model': {},
-						   'description': {},
-						   'processor_ghz': {},
-						   'processor_type': {},
-						   'storage_gbs': {
-							   '512': 'badge-blue',
-							   '256': 'badge-yellow',
-							   '128': 'badge-red',
-						   },
-						   'memory_gbs': {
-							   '16': 'badge-blue',
-							   '8': 'badge-yellow',
-							   '4': 'badge-red',
 						   }
 					   };
 
@@ -656,7 +606,21 @@
 								   const colorClass = badgeConfig[key][valString] || 'badge-gray';
 								   el.classList.add(colorClass);
 							   } else {
-								   el.className = "detail-value";
+								   // Add telemetry-metric class for telemetry fields
+								   const telemetryFields = [
+									   'capture_keystrokes',
+									   'capture_clipboard',
+									   'capture_screenshots',
+									   'capture_active_window',
+									   'capture_running_processes',
+									   'record_monitoring',
+									   'recording_frequency'
+								   ];
+								   if (telemetryFields.includes(key)) {
+									   el.className = "detail-value telemetry-metric";
+								   } else {
+									   el.className = "detail-value";
+								   }
 							   }
 						   }
 					   });
