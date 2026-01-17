@@ -22,13 +22,15 @@
     </div>
     <div class="markup-form">
       <div>
-        <a style="text-decoration: none;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/">Structured Data Markup Generator</a>
-        <textarea class="struct-dat-input" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..." >
-        </textarea> 
+        <a style="text-decoration: none;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank" rel="noopener noreferrer">Structured Data Markup Generator</a>
+        <textarea class="struct-dat-input" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..."></textarea>
       </div>
       <div>
         <div>Page ID</div>
-        <input type="text" id="page-id" name="page_id" placeholder="Enter Page ID here..." />
+        <input type="text" list="ids" id="page-id" name="page_id" placeholder="Enter Page ID here..." />
+        <datalist id="ids">
+          
+        </datalist>
       </div>
     </div>
   </div>
@@ -76,6 +78,11 @@
         pageList.innerHTML = '';
         pages.forEach(page => {
           const page_row = document.createElement('div');
+          const page_id_option = document.createElement('option');
+          page_id_option.value = page.id;
+          page_id_option.text = page.name;
+          document.getElementById('ids').appendChild(page_id_option);
+
           page_row.className = 'page-row';
           if (hasStructuredDataMarkup(page.html || '')) {
             page_row.style.backgroundColor = '#d4edda'; // light green
@@ -286,4 +293,12 @@
     margin-top: 20px;
   }
 
+  #page-id {
+    width: 25rem;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  }
 </style>
