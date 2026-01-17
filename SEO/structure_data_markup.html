@@ -20,19 +20,20 @@
     <div>
       <h3>Structured Data Markup</h3>
     </div>
-    <div class="markup-form">
-      <div>
+    <form class="markup-form">
+      <div class="left-col">
         <a style="text-decoration: none;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank" rel="noopener noreferrer">Structured Data Markup Generator</a>
         <textarea class="struct-dat-input" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..."></textarea>
       </div>
-      <div>
+      <div class="right-col">
         <div>Page ID</div>
         <input type="text" list="ids" id="page-id" name="page_id" placeholder="Enter Page ID here..." />
-        <datalist id="ids">
-          
-        </datalist>
+        <datalist id="ids"></datalist>
+        <div>
+          <input type="submit" value="Submit" class="submit-btn" />
+        </div>
       </div>
-    </div>
+    </form>
   </div>
   <script>
         // Function to check if a page contains structured data markup (JSON-LD)
@@ -301,4 +302,55 @@
     border-radius: 4px;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
   }
+
+  .submit-btn {
+    background-color: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-top: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+  .submit-btn:hover, .submit-btn:focus {
+    background-color: #125ea6;
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.16);
+    outline: none;
+  }
+
+  .left-col, .right-col {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+  .left-col {
+    margin-right: 20px;
+  }
+  .right-col {
+    margin-left: 20px;
+    max-width: 350px;
+  }
+  @media (max-width: 900px) {
+    .markup-form {
+      flex-direction: column;
+    }
+    .left-col, .right-col {
+      margin: 0 0 20px 0;
+      max-width: 100%;
+    }
+  }
 </style>
+
+  
+
+  
