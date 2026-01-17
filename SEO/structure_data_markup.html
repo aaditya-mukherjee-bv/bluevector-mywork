@@ -90,24 +90,29 @@
           }
           page_row.innerHTML = `
             <div class="page-info page-id-info">${page.id}
-              <div class="copy-icon" title="Copy ID">
+              <div class="copy-icon" title="Copy ID" data-copy-value="${page.id}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </div>
             </div>
-            <div class="page-info">${page.name}</div>
+            <div class="page-info page-name-info">${page.name}
+              <div class="copy-icon" title="Copy Name" data-copy-value="${page.name}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </div>
+            </div>
             <div class="page-info">${page.slug}</div>
           `;
-          // Add copy functionality
-          const copyIcon = page_row.querySelector('.copy-icon');
-          if (copyIcon) {
-            copyIcon.addEventListener('click', function(e) {
+          // Add copy functionality for all copy icons
+          const copyIcons = page_row.querySelectorAll('.copy-icon');
+          copyIcons.forEach(icon => {
+            icon.addEventListener('click', function(e) {
               e.stopPropagation();
-              navigator.clipboard.writeText(page.id).then(() => {
-                copyIcon.style.color = '#28a745';
-                setTimeout(() => { copyIcon.style.color = '' }, 1000);
+              const value = icon.getAttribute('data-copy-value');
+              navigator.clipboard.writeText(value).then(() => {
+                icon.style.color = '#28a745';
+                setTimeout(() => { icon.style.color = '' }, 1000);
               });
             });
-          }
+          });
           pageList.appendChild(page_row);
         });
       } catch (error) {
@@ -164,7 +169,8 @@
       color: #b0b8c1;
       transition: color 0.2s;
     }
-    .page-row:hover .copy-icon {
+    .page-id-info:hover .copy-icon,
+    .page-name-info:hover .copy-icon {
       display: inline-flex;
       color: #1976d2;
       background: none;
