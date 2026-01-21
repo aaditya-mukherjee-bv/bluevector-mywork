@@ -20,25 +20,6 @@
       <div class="right-panel-content"></div>
     </div>
   </div>
-  <!-- <div class="container">
-    <div>
-      <h3>Structured Data Markup</h3>
-    </div>
-    <form class="markup-form">
-      <div class="left-col">
-        <a style="text-decoration: none;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank" rel="noopener noreferrer">Structured Data Markup Generator</a>
-        <textarea class="struct-dat-input" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..." rows="10"></textarea>
-      </div>
-      <div class="right-col">
-        <div>Page ID</div>
-        <input type="text" list="ids" id="page-id" name="page_id" placeholder="Enter Page ID here..." />
-        <datalist id="ids"></datalist>
-        <div>
-          <input type="submit" value="Submit" class="submit-btn" />
-        </div>
-      </div>
-    </form>
-  </div> -->
   <script>
         // Function to check if a page contains structured data markup (JSON-LD)
         function hasStructuredDataMarkup(htmlString) {
@@ -89,14 +70,14 @@
           }
           page_row.innerHTML = `
             <div class="page-info page-name-info">${page.name}
-              <div class="copy-icon" title="Copy Name" data-copy-value="${page.name}">
+              <!-- <div class="copy-icon" title="Copy Name" data-copy-value="${page.name}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </div>
+              </div> -->
             </div>
             <div class="page-info page-slug-info">${page.slug}
-              <div class="copy-icon" title="Copy Slug" data-copy-value="${page.slug}">
+              <!-- <div class="copy-icon" title="Copy Slug" data-copy-value="${page.slug}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </div>
+              </div> -->
             </div>
           `;
           // Add copy functionality for all copy icons
@@ -113,9 +94,15 @@
           });
           // Add click event to show right panel with markup form
           page_row.addEventListener('click', function() {
+            // Highlight the selected row
+            document.querySelectorAll('.page-row.selected').forEach(function(row) {
+              row.classList.remove('selected');
+            });
+            page_row.classList.add('selected');
+
             const rightPanel = document.getElementById('right-panel');
             const rightContent = rightPanel.querySelector('.right-panel-content');
-            rightPanel.style.display = 'block';
+            rightPanel.style.display = 'flex';
             // Extract only structured data markup if present
             let structuredMarkup = '';
             if (page.html) {
@@ -127,23 +114,24 @@
               }
             }
             rightContent.innerHTML = `
-              <div class="right-panel-header">
+              <div class="right-panel-header sticky-header">
                 <span class="right-panel-title">Config Settings</span>
                 <button class="close-right-panel" title="Close">&times;</button>
               </div>
-              <form class="markup-form">
+              <div class="right-panel-divider"></div>
+              <form class="markup-form improved-form">
                 <div class="right-col" style="max-width:100%;">
                   <div class="page-id-label">Page ID</div>
-                  <input type="text" id="page-id" name="page_id" value="${page.id || ''}" placeholder="Enter Page ID here..." readonly />
+                  <input type="text" id="page-id" name="page_id" value="${page.id || ''}" placeholder="Enter Page ID here..." readonly class="improved-input" />
                 </div>
                 <div class="left-col" style="margin-top:18px;">
-                  <a style="text-decoration: none; margin-bottom:8px;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank" rel="noopener noreferrer">Structured Data Markup Generator</a>
+                  <a style="text-decoration: none; margin-bottom:8px; font-weight:500; color:#1976d2;" class="link" href="https://technicalseo.com/tools/schema-markup-generator/" target="_blank" rel="noopener noreferrer">Structured Data Markup Generator</a>
                   <div class="markup-label">Structured Data Markup</div>
-                  <textarea class="struct-dat-input" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..." rows="10">${structuredMarkup ? structuredMarkup.replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''}</textarea>
+                  <textarea class="struct-dat-input improved-textarea" id="structured-data-markup" name="structured_data_markup" placeholder="Enter structured data markup here..." rows="10">${structuredMarkup ? structuredMarkup.replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''}</textarea>
                   ${structuredMarkup ? '' : '<div class="no-markup">No structured data markup found for this page.</div>'}
                   <div class="add-markup-label">Add your structured data markup above.</div>
                 </div>
-                <div style="width:100%;text-align:right;margin-top:10px;">
+                <div style="width:100%;text-align:right;margin-top:18px;">
                   <input type="submit" value="Submit" class="submit-btn" />
                 </div>
               </form>
@@ -183,6 +171,15 @@
       width: 100%;
       box-sizing: border-box;
     }
+    .page-row.selected {
+      background: linear-gradient(90deg, #e3f0ff 0%, #f7fbff 100%);
+      box-shadow: 0 6px 24px rgba(25, 118, 210, 0.13), 0 2px 8px rgba(25, 118, 210, 0.08);
+      border: 2px solid #1976d2;
+      color: #174ea6;
+      z-index: 2;
+      position: relative;
+      transition: box-shadow 0.2s, background 0.2s, border 0.2s;
+    }
     .page-row:hover {
       box-shadow: 0 4px 16px rgba(0,0,0,0.10);
       background: #eaf3fb;
@@ -206,13 +203,13 @@
       color: #2d3a4a;
       min-width: 0;
     }
-    .copy-icon {
+    <!-- .copy-icon {
       display: none;
       cursor: pointer;
       margin-left: 6px;
       color: #b0b8c1;
       transition: color 0.2s;
-    }
+    } -->
     .page-name-info:hover .copy-icon,
     .page-slug-info:hover .copy-icon {
       display: inline-flex;
@@ -221,23 +218,77 @@
       border: none;
       box-shadow: none;
     }
-    .copy-icon:active {
+    <!-- .copy-icon:active {
       color: #388e3c;
       background: none;
       border: none;
-    }
+    } -->
     #right-panel {
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 4px 32px rgba(44,62,80,0.13), 0 1.5px 6px rgba(44,62,80,0.07);
       border: 1.5px solid #e3e7ed;
-      padding: 32px 32px 24px 32px;
+      padding: 0;
       margin-top: 10px;
       margin-bottom: 10px;
       min-height: 400px;
       transition: box-shadow 0.2s, border 0.2s;
       position: relative;
       overflow-y: auto;
+      max-height: 80vh;
+      display: none;
+      flex-direction: column;
+    }
+    .right-panel-content {
+      padding: 32px 32px 24px 32px;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+    .right-panel-divider {
+      height: 1.5px;
+      background: linear-gradient(90deg, #e3e7ed 0%, #fff 100%);
+      margin-bottom: 18px;
+      margin-top: -1px;
+      border-radius: 2px;
+    }
+    .improved-form .right-col, .improved-form .left-col {
+      margin-bottom: 12px;
+    }
+    .improved-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1.5px solid #b0b8c1;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(44,62,80,0.07);
+      background: #f7fafd;
+      margin-bottom: 8px;
+      font-family: inherit;
+    }
+    .improved-textarea {
+      width: 100%;
+      min-width: 220px;
+      max-width: 100%;
+      font-family: monospace;
+      font-size: 15px;
+      padding: 14px;
+      border: 1.5px solid #b0b8c1;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(44,62,80,0.07);
+      background: #f7fafd;
+      resize: vertical;
+      margin-bottom: 8px;
     }
     .right-panel-header {
       display: flex;
@@ -335,7 +386,6 @@
   }
 
   .container {
-    margin-bottom: 40px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
