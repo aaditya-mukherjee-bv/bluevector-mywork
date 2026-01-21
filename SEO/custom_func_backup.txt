@@ -1,0 +1,84 @@
+import json
+import re
+from bs4 import BeautifulSoup
+
+page_id = page_id 
+json_ld_input = json_ld_input
+
+"""
+Inserts JSON-LD script before </body> for a page identified by UUID.
+
+Args:
+    page_id (str): UUID of the page
+    json_ld_input (str): <script type="application/ld+json">...</script>
+
+Returns:
+    bool
+"""
+
+#Extract JSON from <script> tag
+script_match = re.search(
+    r"<script[^>]*type=[\"']application/ld\+json[\"'][^>]*>(.*?)</script>",
+    json_ld_input,
+    re.DOTALL | re.IGNORECASE
+)
+
+if not script_match:
+    raise ValueError("Invalid JSON-LD script tag provided")
+
+raw_json = script_match.group(1).strip()
+
+#Validate JSON
+try:
+    json_obj = json.loads(raw_json)
+except json.JSONDecodeError as e:
+    raise ValueError("Invalid JSON inside JSON-LD script") from e
+
+json_ld_clean = json.dumps(json_obj, ensure_ascii=False, indent=2)
+
+#Fetch page HTML
+select_query = """
+    SELECT html
+    FROM pages
+    WHERE id = %s
+    LIMIT 1
+"""
+result = bv_core.execute_query(select_query, (page_id,))
+
+if not result or not result[0].get("html"):
+    raise ValueError(f"Page not found or HTML empty for id {page_id}")
+
+html_content = result[0]["html"]
+
+#Parse HTML safely
+soup = BeautifulSoup(html_content, "html.parser")
+
+if soup.body is None:
+    raise ValueError("HTML does not contain <body> tag")
+
+#Remove existing JSON-LD scripts
+for existing in soup.find_all("script", type="application/ld+json"):
+    existing.decompose()
+
+# Create new JSON-LD script
+script_tag = soup.new_tag("script", type="application/ld+json")
+script_tag.string = json_ld_clean
+
+#Insert before </body>
+soup.body.append(script_tag)
+
+updated_html = str(soup)
+
+# Update DB (SAFE, PARAMETERIZED)
+update_query = """
+    UPDATE pages
+    SET html = %s
+    WHERE id = %s
+"""
+bv_core.execute_update_query(update_query, (updated_html, page_id))
+
+#Optional verification
+verify = bv_core.execute_query(select_query, (page_id,))
+print(verify[0]["html"])
+
+return True
