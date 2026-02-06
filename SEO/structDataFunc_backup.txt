@@ -1,0 +1,6 @@
+function hasStructuredDataMarkup(htmlString) {
+      if (!htmlString) return false;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlString, 'text/html');
+      return !!doc.querySelector('script[type="application/ld+json"]');
+    }

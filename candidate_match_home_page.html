@@ -1,0 +1,1066 @@
+<body>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ShortLyst - Your Career Journey Starts Here</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.5/sweetalert2.min.css" rel="stylesheet"/>
+    <input id="res_id" type="hidden" value="[[resource_id]]"/>
+    <div class="container">
+      <div class="hero">
+        <h1 class="hero-title">Your Dream Job Awaits</h1>
+        <p class="hero-subtitle">
+          Join our team of innovators and make an impact. We're looking for
+          talented individuals who are ready to take their career to the next
+          level.
+        </p>
+        <div class="cta-buttons">
+          <button id="scrollToResultsBtn" class="btn btn-primary shortlyst-apply-btn">
+            Apply Now
+          </button>
+          <a href="https://bluevector.snapapp.com/list-view/389d4b09-755d-4090-885e-cf3f0fe20d69?app=c27e2c2a-e282-4008-a729-3d247a125271">
+            <button id="applicationsBtn-2-2-2" class="btn btn-secondary">
+              My Applications
+            </button>
+          </a>
+        </div>
+      </div>
+      <div id="jobs" class="features">
+        {% for job in [[[=FETCH_JOB_PROFILES()]]] %}
+        <div data-job-id="{{ job.id }}" data-job-additional-context="{{ job.additional_context }}" data-job-hiring-locations="{{ job.hiring_locations }}" data-job-name="{{ job.name }}" data-job-salary-range="{{ job.salary_range }}" data-job-soft-skills="{{ job.required_soft_skills }}" data-job-technical-skills="{{ job.required_technical_skills }}" class="feature-card">
+          <div class="card-header">
+            <div class="icon-container">
+              <span class="material-icons card-icon"></span>
+            </div>
+            <div class="card-details">
+              <h3 class="card-title">{{ job.name }}</h3>
+            </div>
+          </div>
+          <p class="card-description">{{ job.description }}</p>
+          <div class="card-footer">
+            <div class="footer-left">
+              <div data-locations="{{ job.hiring_locations }}" class="location-pills shortlyst-location-pills">
+              </div>
+              <span class="time">{{ job.salary_range }}</span>
+            </div>
+            <div class="footer-right">
+              <span class="details-btn">Details</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="how-it-works">
+        <h2 class="section-title">How to Apply</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h4 class="step-title">Submit Application</h4>
+            <p class="step-description">
+              Fill out our simple application form with your details
+            </p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h4 class="step-title">We Review</h4>
+            <p class="step-description">
+              Our team carefully reviews your application
+            </p>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4 class="step-title">Get Contacted</h4>
+            <p class="step-description">
+              Qualified candidates are contacted for interviews
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="why-join">
+        <h2 class="section-title">Why Join Us?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">home_work</span>
+            <h4 class="benefit-title">Remote Flexibility</h4>
+            <p class="benefit-description">
+              Work from anywhere with flexible hours and work-life balance
+            </p>
+          </div>
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">school</span>
+            <h4 class="benefit-title">Learning &amp; Development</h4>
+            <p class="benefit-description">
+              Continuous learning opportunities and skill development programs
+            </p>
+          </div>
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">celebration</span>
+            <h4 class="benefit-title">Great Culture</h4>
+            <p class="benefit-description">
+              Collaborative environment with amazing team events and perks
+            </p>
+          </div>
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">public</span>
+            <h4 class="benefit-title">Global Opportunities</h4>
+            <p class="benefit-description">
+              Work with teams and clients from around the world, expanding your
+              horizons
+            </p>
+          </div>
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">lightbulb</span>
+            <h4 class="benefit-title">Innovative Projects</h4>
+            <p class="benefit-description">
+              Be part of cutting-edge projects that challenge and inspire you
+            </p>
+          </div>
+          <div class="benefit-item">
+            <span class="material-icons benefit-icon">volunteer_activism</span>
+            <h4 class="benefit-title">Purpose &amp; Impact</h4>
+            <p class="benefit-description">
+              Make a real difference with work that matters to our community and
+              beyond
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h2 class="cta-title">Ready to Take the Next Step?</h2>
+        <p class="cta-description">
+          Don't wait for the perfect moment. Your perfect opportunity is waiting
+          for you right now.
+        </p>
+        <button id="scrollToResultsBtn-2" class="btn btn-primary btn-large shortlyst-apply-btn">
+          Apply Today
+        </button>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Contact Us</a>
+        <a href="#" class="footer-link">About Us</a>
+      </div>
+      <p>© 2025 ShortLyst. All rights reserved.</p>
+    </footer>
+    <script>
+      const getJobIcon = (jobTitle) => {
+        const keywordMap = {
+          Cloud: "cloud_queue",
+          Data: "storage",
+          Engineer: "build",
+          Architect: "architecture",
+          Manager: "leaderboard",
+          QA: "verified",
+          Analyst: "analytics",
+          Executive: "person_outline",
+          UI: "devices",
+          UX: "devices",
+          Solution: "domain",
+          ML: "memory",
+          Developer: "code",
+          Project: "timeline",
+          Director: "security",
+          Virtual: "smart_toy",
+          Agent: "support_agent",
+        };
+        const sanitizedTitle = jobTitle.trim().toLowerCase();
+        for (const keyword in keywordMap) {
+          if (sanitizedTitle.includes(keyword.toLowerCase())) {
+            return keywordMap[keyword];
+          }
+        }
+        return "work_outline";
+      };
+  
+      const createLocationPills = (container, locations) => {
+        const colors = ["#e1f5fe", "#e8f5e9", "#fff3e0", "#fce4ec", "#f3e5f5"];
+        const textColors = ["#0277bd", "#2e7d32", "#ef6c00", "#c2185b", "#6a1b9a"];
+        let colorIndex = 0;
+        
+        locations.forEach((location) => {
+          const pill = document.createElement("span");
+          pill.textContent = location;
+          pill.classList.add("shortlyst-badge", "shortlyst-badge-location");
+          const randomColorIndex = colorIndex % colors.length;
+          pill.style.backgroundColor = colors[randomColorIndex];
+          pill.style.color = textColors[randomColorIndex];
+          container.appendChild(pill);
+          colorIndex++;
+        });
+      };
+  
+      document.addEventListener("DOMContentLoaded", () => {
+        const jobCards = document.querySelectorAll(".feature-card");
+        
+        jobCards.forEach((card) => {
+          const jobTitleElement = card.querySelector(".card-title");
+          const cardIconElement = card.querySelector(".card-icon");
+          
+          if (jobTitleElement && cardIconElement) {
+            const jobTitle = jobTitleElement.textContent.trim();
+            cardIconElement.textContent = getJobIcon(jobTitle);
+          }
+  
+          const locationContainer = card.querySelector(".shortlyst-location-pills");
+          if (locationContainer && locationContainer.dataset.locations) {
+            let locationsData = locationContainer.dataset.locations;
+            locationsData = locationsData.replace(/\[|\]|'/g, "");
+            const locationsArray = locationsData
+              .split(",")
+              .map((location) => location.trim());
+            createLocationPills(locationContainer, locationsArray);
+          }
+  
+          const detailsBtn = card.querySelector(".details-btn");
+          if (detailsBtn) {
+            detailsBtn.addEventListener("click", (event) => {
+              event.stopPropagation();
+              const jobId = card.dataset.jobId;
+              // Redirect to job details page with job ID as parameter
+              window.location.href = `https://bluevector.snapapp.com/page/apply-job?app=e8874aad-05cb-4934-ab32-f8352707d249&job_id=${jobId}`;
+            });
+          }
+        });
+  
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+  
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.transform = "translateY(0)";
+              entry.target.style.opacity = "1";
+            }
+          });
+        }, observerOptions);
+  
+        document
+          .querySelectorAll(".feature-card, .step, .benefit-item")
+          .forEach((el) => {
+            el.style.transform = "translateY(20px)";
+            el.style.opacity = "0";
+            el.style.transition = "all 0.6s ease";
+            observer.observe(el);
+          });
+  
+        const ctaObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.animation = "fadeInUp 0.8s ease-out forwards";
+              }
+            });
+          },
+          { threshold: 0.3 }
+        );
+  
+        const ctaSection = document.querySelector(".cta-section");
+        if (ctaSection) {
+          ctaSection.style.opacity = "0";
+          ctaSection.style.transform = "translateY(30px)";
+          ctaObserver.observe(ctaSection);
+        }
+  
+        const scrollButtons = document.querySelectorAll(
+          "#scrollToResultsBtn, #scrollToResultsBtn-2"
+        );
+        const destination = document.getElementById("jobs");
+        
+        if (destination) {
+          scrollButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+              destination.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            });
+          });
+        }
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.5/sweetalert2.min.js"></script>
+  </body>
+  
+  <style nonce="s8dZEjPrK4qzowZlJOjg7XCdEuIEEgF_">
+    /* Keep all the existing CSS from the original file */
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin-bottom: 0px;
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-top: 0px;
+    }
+    
+    body {
+      background-color: rgb(255, 255, 255);
+      color: rgb(32, 33, 36);
+      font-family: "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      margin-bottom: 0px;
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+      min-height: 100vh;
+    }
+    
+    :root {
+      --primary: rgb(26, 115, 232);
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 1200px;
+      min-height: 100vh;
+      padding-bottom: 80px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 80px;
+    }
+    
+    /* Keep all the rest of the existing CSS exactly as it was */
+    /* ... (All the CSS from the original file remains unchanged) ... */
+    
+    .hero {
+      margin-bottom: 80px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 700px;
+      text-align: center;
+    }
+    
+    .hero-title {
+      color: rgb(32, 33, 36);
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    
+    .hero-subtitle {
+      color: rgb(95, 99, 104);
+      font-size: 1.25rem;
+      line-height: 1.5;
+      margin-bottom: 48px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 600px;
+    }
+    
+    .cta-buttons {
+      column-gap: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 16px;
+    }
+    
+    .btn {
+      align-items: center;
+      border-bottom-color: rgb(218, 220, 224);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      border-image-slice: initial;
+      border-image-source: initial;
+      border-image-width: initial;
+      border-left-color: rgb(218, 220, 224);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgb(218, 220, 224);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgb(218, 220, 224);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      border-top-style: solid;
+      border-top-width: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 0.8rem;
+      font-weight: 500;
+      justify-content: center;
+      min-width: 160px;
+      padding-bottom: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 1rem;
+      position: relative;
+      text-decoration-color: initial;
+      text-decoration-line: none;
+      text-decoration-style: initial;
+      text-decoration-thickness: initial;
+      transition-behavior: normal;
+      transition-delay: 0s;
+      transition-duration: 0.3s;
+      transition-property: all;
+      transition-timing-function: ease;
+    }
+    
+    .btn-large {
+      font-size: 1.125rem;
+      min-width: 200px;
+    }
+    
+    .shortlyst-apply-btn {
+      background-color: rgb(26, 115, 232) !important;
+      border-bottom-color: rgb(26, 115, 232) !important;
+      border-left-color: rgb(26, 115, 232) !important;
+      border-right-color: rgb(26, 115, 232) !important;
+      border-top-color: rgb(26, 115, 232) !important;
+      color: white !important;
+    }
+    
+    .btn.btn-primary.shortlyst-apply-btn,
+    body .container .btn.btn-primary.shortlyst-apply-btn {
+      background-color: rgb(26, 115, 232) !important;
+      border-bottom-color: rgb(26, 115, 232) !important;
+      border-left-color: rgb(26, 115, 232) !important;
+      border-right-color: rgb(26, 115, 232) !important;
+      border-top-color: rgb(26, 115, 232) !important;
+      color: white !important;
+    }
+    
+    .shortlyst-apply-btn:hover {
+      background-color: rgb(21, 87, 176) !important;
+      border-bottom-color: rgb(21, 87, 176) !important;
+      border-left-color: rgb(21, 87, 176) !important;
+      border-right-color: rgb(21, 87, 176) !important;
+      border-top-color: rgb(21, 87, 176) !important;
+      transform: translateY(-1px) !important;
+    }
+    
+    .btn.btn-primary.shortlyst-apply-btn:hover,
+    body .container .btn.btn-primary.shortlyst-apply-btn:hover {
+      background-color: rgb(21, 87, 176) !important;
+      border-bottom-color: rgb(21, 87, 176) !important;
+      border-left-color: rgb(21, 87, 176) !important;
+      border-right-color: rgb(21, 87, 176) !important;
+      border-top-color: rgb(21, 87, 176) !important;
+      transform: translateY(-1px) !important;
+    }
+    
+    .btn-secondary {
+      background-color: white;
+      color: rgb(26, 115, 232);
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgb(248, 249, 250);
+      border-bottom-color: rgb(26, 115, 232);
+      border-left-color: rgb(26, 115, 232);
+      border-right-color: rgb(26, 115, 232);
+      border-top-color: rgb(26, 115, 232);
+      color: rgb(26, 115, 232);
+      transform: translateY(-1px);
+    }
+    
+    .features {
+      column-gap: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      margin-bottom: 100px;
+      row-gap: 32px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-bottom-color: rgb(232, 234, 237);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      border-image-slice: initial;
+      border-image-source: initial;
+      border-image-width: initial;
+      border-left-color: rgb(232, 234, 237);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgb(232, 234, 237);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgb(232, 234, 237);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-top-style: solid;
+      border-top-width: 1px;
+      cursor: pointer;
+      padding-bottom: 24px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 24px;
+      text-align: left;
+      transition-behavior: normal;
+      transition-delay: 0s;
+      transition-duration: 0.3s;
+      transition-property: all;
+      transition-timing-function: ease;
+    }
+    
+    .feature-card:hover {
+      border-bottom-color: rgb(218, 220, 224);
+      border-left-color: rgb(218, 220, 224);
+      border-right-color: rgb(218, 220, 224);
+      border-top-color: rgb(218, 220, 224);
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 24px;
+      transform: translateY(-4px);
+    }
+    
+    .how-it-works {
+      margin-bottom: 100px;
+      text-align: center;
+    }
+    
+    .section-title {
+      color: rgb(32, 33, 36);
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 60px;
+    }
+    
+    .steps {
+      align-items: center;
+      column-gap: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 900px;
+      row-gap: 40px;
+    }
+    
+    .step {
+      max-width: 200px;
+      text-align: center;
+    }
+    
+    .step-number {
+      align-items: center;
+      background-color: rgb(26, 115, 232);
+      border-bottom-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      color: white;
+      display: flex;
+      font-size: 1.5rem;
+      font-weight: 600;
+      height: 60px;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      width: 60px;
+    }
+    
+    .step-title {
+      color: rgb(32, 33, 36);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    
+    .step-description {
+      color: rgb(95, 99, 104);
+      font-size: 0.95rem;
+    }
+    
+    .step-arrow {
+      color: rgb(218, 220, 224);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    
+    .why-join {
+      margin-bottom: 100px;
+      text-align: center;
+    }
+    
+    .benefits-grid {
+      column-gap: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin-bottom: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 1000px;
+      row-gap: 32px;
+    }
+    
+    .benefit-item {
+      background-color: white;
+      border-bottom-color: rgb(232, 234, 237);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      border-image-slice: initial;
+      border-image-source: initial;
+      border-image-width: initial;
+      border-left-color: rgb(232, 234, 237);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgb(232, 234, 237);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgb(232, 234, 237);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      border-top-style: solid;
+      border-top-width: 1px;
+      padding-bottom: 32px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 32px;
+      text-align: center;
+      transition-behavior: normal;
+      transition-delay: 0s;
+      transition-duration: 0.3s;
+      transition-property: all;
+      transition-timing-function: ease;
+    }
+    
+    .benefit-item:hover {
+      border-bottom-color: rgb(218, 220, 224);
+      border-left-color: rgb(218, 220, 224);
+      border-right-color: rgb(218, 220, 224);
+      border-top-color: rgb(218, 220, 224);
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 24px;
+      transform: translateY(-4px);
+    }
+    
+    .benefit-icon {
+      color: rgb(26, 115, 232);
+      display: block;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .benefit-title {
+      color: rgb(32, 33, 36);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    
+    .benefit-description {
+      color: rgb(95, 99, 104);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    .cta-section {
+      background-color: rgb(248, 249, 250);
+      border-bottom-color: rgb(232, 234, 237);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      border-image-slice: initial;
+      border-image-source: initial;
+      border-image-width: initial;
+      border-left-color: rgb(232, 234, 237);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgb(232, 234, 237);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgb(232, 234, 237);
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
+      border-top-style: solid;
+      border-top-width: 1px;
+      color: rgb(32, 33, 36);
+      margin-bottom: 60px;
+      padding-bottom: 80px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 80px;
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+    
+    .cta-description {
+      color: rgb(95, 99, 104);
+      font-size: 1.25rem;
+      margin-bottom: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0px;
+      max-width: 500px;
+    }
+    
+    .footer {
+      background-color: white;
+      border-top-color: rgb(232, 234, 237);
+      border-top-style: solid;
+      border-top-width: 1px;
+      color: rgb(95, 99, 104);
+      font-size: 0.875rem;
+      margin-top: auto;
+      padding-bottom: 32px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 32px;
+      text-align: center;
+    }
+    
+    .footer-links {
+      column-gap: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+      row-gap: 32px;
+    }
+    
+    .footer-link {
+      color: rgb(95, 99, 104);
+      text-decoration-color: initial;
+      text-decoration-line: none;
+      text-decoration-style: initial;
+      text-decoration-thickness: initial;
+      transition-behavior: normal;
+      transition-delay: 0s;
+      transition-duration: 0.2s;
+      transition-property: color;
+      transition-timing-function: ease;
+    }
+    
+    .footer-link:hover {
+      color: rgb(26, 115, 232);
+    }
+    
+    .card-header {
+      align-items: center;
+      display: flex;
+      margin-bottom: 16px;
+      padding-bottom: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
+      padding-top: 0rem !important;
+    }
+    
+    .icon-container {
+      align-items: center;
+      background-color: rgb(232, 240, 254);
+      border-bottom-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      display: flex;
+      height: 56px;
+      justify-content: center;
+      margin-right: 16px;
+      min-width: 56px;
+      width: 56px;
+    }
+    
+    .card-icon {
+      color: var(--primary);
+      font-size: 28px !important;
+    }
+    
+    .card-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-title {
+      color: rgb(32, 33, 36);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .card-description {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      color: rgb(95, 99, 104);
+      display: -webkit-box;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .card-footer {
+      align-items: center;
+      border-top-color: initial !important;
+      border-top-style: none !important;
+      border-top-width: initial !important;
+      column-gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-bottom: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
+      padding-top: 0rem !important;
+      row-gap: 8px;
+    }
+    
+    .footer-left {
+      align-items: center;
+      column-gap: 8px;
+      display: flex;
+      row-gap: 8px;
+    }
+    
+    .footer-right {
+      align-items: center;
+      column-gap: 8px;
+      display: flex;
+      row-gap: 8px;
+    }
+    
+    .time {
+      color: rgb(95, 99, 104);
+      font-size: 0.8rem;
+    }
+    
+    .location-pills {
+      column-gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+    
+    .shortlyst-badge-location,
+    body .container .feature-card .footer-left .shortlyst-location-pills .shortlyst-badge {
+      border-bottom-left-radius: 16px !important;
+      border-bottom-right-radius: 16px !important;
+      border-top-left-radius: 16px !important;
+      border-top-right-radius: 16px !important;
+      display: inline-block !important;
+      font-size: 0.75rem !important;
+      font-weight: 500 !important;
+      margin-bottom: 2px !important;
+      margin-left: 2px !important;
+      margin-right: 2px !important;
+      margin-top: 2px !important;
+      padding-bottom: 4px !important;
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+      padding-top: 4px !important;
+      text-wrap-mode: nowrap !important;
+      white-space-collapse: collapse !important;
+    }
+    
+    .details-btn {
+      align-items: center;
+      background-color: rgb(219, 233, 254);
+      border-bottom-color: rgba(29, 63, 176, 0.133);
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      border-image-slice: initial;
+      border-image-source: initial;
+      border-image-width: initial;
+      border-left-color: rgba(29, 63, 176, 0.133);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgba(29, 63, 176, 0.133);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgba(29, 63, 176, 0.133);
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      border-top-style: solid;
+      border-top-width: 1px;
+      color: rgb(29, 64, 176);
+      cursor: pointer;
+      display: flex !important;
+      font-size: 1rem;
+      font-weight: 500;
+      height: 35px;
+      justify-content: center;
+      padding-bottom: 0.25rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      padding-top: 0.25rem;
+      transition-behavior: normal;
+      transition-delay: 0s;
+      transition-duration: 0.3s;
+      transition-property: all;
+      transition-timing-function: ease;
+    }
+    
+    .details-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      
+      100% {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding-bottom: 60px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 80px;
+      }
+      
+      .hero {
+        margin-bottom: 80px;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.125rem;
+        margin-bottom: 32px;
+      }
+      
+      .cta-buttons {
+        align-items: center;
+        column-gap: 12px;
+        flex-direction: column;
+        row-gap: 12px;
+      }
+      
+      .btn {
+        max-width: 280px;
+        width: 100%;
+      }
+      
+      .features {
+        column-gap: 24px;
+        grid-template-columns: 1fr;
+        margin-bottom: 80px;
+        row-gap: 24px;
+      }
+      
+      .feature-card {
+        padding-bottom: 32px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 32px;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+      }
+      
+      .steps {
+        column-gap: 30px;
+        flex-direction: column;
+        row-gap: 30px;
+      }
+      
+      .step-arrow {
+        font-size: 1.5rem;
+        transform: rotate(90deg);
+      }
+      
+      .benefits-grid {
+        column-gap: 24px;
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+      }
+      
+      .cta-section {
+        padding-bottom: 60px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 60px;
+      }
+      
+      .cta-title {
+        font-size: 2rem;
+      }
+      
+      .cta-description {
+        font-size: 1.125rem;
+      }
+      
+      .footer-links {
+        column-gap: 20px;
+        row-gap: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .feature-card {
+        padding-bottom: 24px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 24px;
+      }
+      
+      .section-title {
+        font-size: 1.75rem;
+      }
+      
+      .cta-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
