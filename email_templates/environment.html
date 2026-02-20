@@ -1,0 +1,202 @@
+<body id="i23f">
+    <div class="email-wrapper">
+        <div class="email-header">
+            <a style="text-decoration: none;"
+                href="https://snapapp.com/page/SnapApp-AI-App-Builder-Community?app=79302b37-c7b8-48d3-b8c6-e58c541aeace"><img
+                    src="https://storage.googleapis.com/bv-presto-prod-sled-public/pages/755d0770-d997-41ae-9c61-7630d2436a0b/79302b37-c7b8-48d3-b8c6-e58c541aeace-logo_17405518662201521.png" /></a>
+        </div>
+        <div id="ivxh" class="hero">
+            <h1 id="id0n">
+                Your SnapApp Environment is <span id="iypn">Ready!</span>
+            </h1>
+        </div>
+        <div class="email-body">
+            <p id="iuejs">Hello [[name]],</p>
+            <p>
+                Great news! Your custom environment has been successfully provisioned and is ready for use. You can now
+                access your dedicated workspace to start building.
+            </p>
+
+            <div class="tip-box">
+                <span>
+                    <strong style="color: rgb(37, 99, 235);">Instruction:</strong> You'll need to create a new admin
+                    login for your new provisioned environment.
+                </span>
+            </div>
+
+            <p id="iu4ac">
+                <strong id="ii596">Tenant & Environment Details:</strong>
+            </p>
+            <div class="resource-list"
+                style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div class="resource-item" style="text-align: left; margin-bottom: 8px;">
+                    <strong>Tenant Name:</strong> [[tenant_name]]
+                </div>
+                <div class="resource-item" style="text-align: left; margin-bottom: 8px;">
+                    <strong>Admin Email:</strong> [[email]]
+                </div>
+                <div class="resource-item" style="text-align: left;">
+                    <strong>Domain URL:</strong> [[[LOOKUP("[[id]]","customer_environments","customer_id","domain")]]]
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;">
+                Use the button below to access your environment directly. You will be prompted to set up your
+                administrative credentials upon your first visit.
+            </p>
+        </div>
+
+        <div class="cta">
+            <a href="https://[[[LOOKUP('[[id]]','customer_environments','customer_id','domain')]]]" class="btn-email-primary">
+                View Your Environment
+            </a>
+        </div>
+
+        <div class="footer-cards">
+            <div class="footer-card">
+                <strong>Quick Start Guide</strong>
+                <br />
+                Learn how to configure your new environment settings and user permissions.
+            </div>
+            <div class="footer-card">
+                <strong>Security Best Practices</strong>
+                <br />Ensure your admin account is secured with multi-factor authentication.
+            </div>
+            <div class="footer-card">
+                <strong>Support</strong>
+                <br />Our technical team is available 24/7 to help with any provisioning issues.
+            </div>
+        </div>
+        <div class="footer">
+            <div>This is an automated message regarding your SnapApp environment provisioning.</div>
+            <div>© SnapApp • <a class="footer-link" style="text-decoration: none;"
+                    href="https://snapapp.com/page/unsubscribe">Unsubscribe</a></div>
+        </div>
+    </div>
+</body>
+
+<style>
+    /* All original styles maintained for consistency */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background-color: rgb(244, 247, 251);
+        font-family: Arial, sans-serif;
+    }
+
+    .email-wrapper {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        margin: 32px auto;
+        max-width: 720px;
+        overflow: hidden;
+    }
+
+    .email-header {
+        padding: 24px;
+    }
+
+    .email-header img {
+        height: auto;      /* Allows the height to scale naturally */
+        max-height: 60px;  /* Limits the size so it doesn't get too big */
+        max-width: 100%;   /* Ensures it never overflows the screen on mobile */
+        display: block;    /* Removes extra bottom spacing common in email clients */
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #e8f1fb, #f6fbff);
+        padding: 36px 28px;
+    }
+
+    .hero h1 {
+        color: #0f172a;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .hero span {
+        color: #2563eb;
+    }
+
+    .email-body {
+        color: #334155;
+        font-size: 14px;
+        line-height: 1.65;
+        padding: 32px 28px;
+    }
+
+    .resource-list {
+        margin: 20px 0;
+    }
+
+    .resource-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #334155;
+    }
+
+    .tip-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background-color: #eff6ff;
+        border-left: 4px solid #2563eb;
+        border-radius: 6px;
+        margin: 24px 0;
+        padding: 16px;
+        font-size: 14px;
+    }
+
+    .cta {
+        display: flex;
+        justify-content: center;
+        padding: 28px;
+    }
+
+    .btn-email-primary {
+        background-color: #2563eb;
+        border-radius: 999px;
+        color: #fff;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 14px 28px;
+        text-decoration: none;
+    }
+
+    .footer-cards {
+        background-color: #f8fafc;
+        display: flex;
+        gap: 12px;
+        padding: 24px;
+    }
+
+    .footer-card {
+        background-color: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        color: #475569;
+        flex: 1;
+        font-size: 12px;
+        padding: 16px;
+    }
+
+    .footer {
+        color: #64728b;
+        font-size: 11px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .footer-cards {
+            flex-direction: column;
+        }
+    }
+</style>

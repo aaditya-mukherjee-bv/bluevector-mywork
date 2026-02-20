@@ -109,10 +109,9 @@
             </div>
 
             <h1>Unsubscribe</h1>
-            <p class="subtitle">We're sorry to see you go. Before you head out, can you let us know why you
-                unsubscribed?</p>
+            <p class="subtitle">We're sorry to see you go.</p>
 
-            <button class="primary-btn">Send Feedback + Unsubscribe</button>
+            <button class="primary-btn">Unsubscribe</button>
         </section>
     </main>
 
@@ -148,7 +147,6 @@
                     console.log('Success:', data);
                     // Modern UI feedback
                     heading.textContent = "You're Unsubscribed";
-                    subtitle.textContent = "Your feedback has been received. We've removed you from our list.";
                     button.style.display = 'none';
                 })
                 .catch(error => {
