@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Campaign</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --ink: #0f172a;
+            --muted: #64748b;
+            --panel: #ffffff;
+            --line: rgba(15, 23, 42, 0.08);
+            --accent: #2563eb;
+            --accent-2: #06b6d4;
+        }
+
+        .mf-dashboard {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--ink);
+            background: radial-gradient(circle at 20% 10%, #e6f0ff 0%, rgba(230, 240, 255, 0) 45%),
+                radial-gradient(circle at 90% 15%, #f0fbff 0%, rgba(240, 251, 255, 0) 40%),
+                linear-gradient(135deg, #f8fafc 0%, #eef2f7 50%, #e5e7eb 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .mf-dashboard * {
+            box-sizing: border-box;
+        }
+
+        .mf-page-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mf-page-bg .mf-orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .mf-page-bg .mf-orb-1 { width: 240px; height: 240px; top: -60px; left: -40px; background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0) 70%); }
+        .mf-page-bg .mf-orb-2 { width: 300px; height: 300px; top: 20%; right: -120px; background: radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(6, 182, 212, 0) 70%); animation-delay: -4s; }
+        .mf-page-bg .mf-orb-3 { width: 220px; height: 220px; bottom: -90px; left: 20%; background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 70%); animation-delay: -7s; }
+
+        .mf-shell {
+            position: relative;
+            z-index: 1;
+            max-width: 900px; /* Slightly narrower for forms to improve readability */
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mf-hero {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            animation: rise 0.6s ease-out;
+        }
+
+        .mf-hero-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mf-back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .mf-back-btn:hover {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+            transform: translateX(-2px);
+        }
+
+        .mf-hero h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 2.5vw, 2.5rem);
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        /* Form Card Styling */
+        .mf-card {
+            border: 1px solid var(--line);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.05);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            overflow: hidden;
+            animation: fade 0.7s ease-out;
+        }
+
+        .mf-card-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid #f1f5f9;
+            background: linear-gradient(90deg, rgba(248, 250, 252, 0.8), rgba(255, 255, 255, 0));
+        }
+
+        .mf-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mf-card-title i { color: var(--accent); }
+
+        .mf-card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Form Elements */
+        .mf-form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .mf-label-form {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.9rem;
+        }
+
+        .mf-input, .mf-select, .mf-textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            color: var(--ink);
+            background: #ffffff;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.02);
+        }
+
+        .mf-input:focus, .mf-select:focus, .mf-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .mf-textarea { resize: vertical; min-height: 120px; }
+
+        .mf-form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Buttons */
+        .mf-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+            animation: rise 0.8s ease-out;
+        }
+
+        .mf-btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            color: #ffffff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mf-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(37, 99, 235, 0.32);
+        }
+
+        .mf-btn-secondary {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mf-btn-secondary:hover {
+            background: #f8fafc;
+            color: var(--ink);
+            border-color: #94a3b8;
+        }
+
+        /* Radio Toggle Styles for Type Enum */
+        .mf-radio-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .mf-radio-card {
+            flex: 1;
+            position: relative;
+        }
+
+        .mf-radio-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .mf-radio-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #64748b;
+            background: #fff;
+        }
+
+        .mf-radio-label i { font-size: 1.5rem; }
+
+        .mf-radio-card input:checked + .mf-radio-label {
+            border-color: var(--accent);
+            background: #eff6ff;
+            color: var(--accent);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        @media (min-width: 640px) {
+            .mf-hero { flex-direction: row; justify-content: space-between; align-items: center; }
+            .mf-form-grid-2 { grid-template-columns: 1fr 1fr; }
+        }
+
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(18px); } }
+    </style>
+</head>
+<body class="mf-dashboard">
+
+    <div class="mf-page-bg" aria-hidden="true">
+        <span class="mf-orb mf-orb-1"></span>
+        <span class="mf-orb mf-orb-2"></span>
+        <span class="mf-orb mf-orb-3"></span>
+    </div>
+
+    <div class="mf-shell">
+        <header class="mf-hero">
+            <div class="mf-hero-header">
+                <a href="#" class="mf-back-btn" title="Back to Dashboard">
+                    <i id="back-to-dashboard-btn" class="fas fa-arrow-left"></i>
+                </a>
+                <h1>New Campaign</h1>
+            </div>
+        </header>
+
+        <form>
+            <div class="mf-card">
+                <div class="mf-card-header">
+                    <h2 class="mf-card-title"><i class="fas fa-info-circle"></i> Campaign Details</h2>
+                </div>
+                <div class="mf-card-body">
+                    <div class="mf-form-group">
+                        <label class="mf-label-form">Campaign Name</label>
+                        <input type="text" class="mf-input" placeholder="e.g., Summer Holiday Promo 2026">
+                    </div>
+
+                    <div class="mf-form-group">
+                        <label class="mf-label-form">Campaign Type</label>
+                        <div class="mf-radio-group">
+                            <label class="mf-radio-card">
+                                <input type="radio" name="campaign_type" value="Email" checked>
+                                <div class="mf-radio-label">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </div>
+                            </label>
+                            <label class="mf-radio-card">
+                                <input type="radio" name="campaign_type" value="SMS">
+                                <div class="mf-radio-label">
+                                    <i class="fas fa-comment-alt"></i>
+                                    <span>SMS</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mf-card">
+                <div class="mf-card-header">
+                    <h2 class="mf-card-title"><i class="fas fa-cog"></i> Configuration & Scheduling</h2>
+                </div>
+                <div class="mf-card-body">
+                    <div class="mf-form-group">
+                        <label class="mf-label-form">Delivery Service Integration</label>
+                        <select class="mf-select">
+                            <option value="">Select a service...</option>
+                            <option value="1">SendGrid (Primary Email)</option>
+                            <option value="2">Mailgun (Backup Email)</option>
+                            <option value="3">Twilio (Global SMS)</option>
+                        </select>
+                    </div>
+
+                    <div class="mf-form-grid-2">
+                        <div class="mf-form-group">
+                            <label class="mf-label-form">Start Date & Time</label>
+                            <input type="datetime-local" class="mf-input">
+                        </div>
+                        <div class="mf-form-group">
+                            <label class="mf-label-form">End Date & Time</label>
+                            <input type="datetime-local" class="mf-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mf-card">
+                <div class="mf-card-header">
+                    <h2 class="mf-card-title"><i class="fas fa-pen-nib"></i> Message Content</h2>
+                </div>
+                <div class="mf-card-body">
+                    <div class="mf-form-group">
+                        <label class="mf-label-form">Subject / Headline</label>
+                        <input type="text" class="mf-input" placeholder="Catchy subject line goes here...">
+                    </div>
+                    <div class="mf-form-group">
+                        <label class="mf-label-form">Message Body</label>
+                        <textarea class="mf-textarea" placeholder="Type your email or SMS content here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mf-actions">
+                <button type="button" class="mf-btn-secondary">Save as Draft</button>
+                <button type="submit" class="mf-btn-primary"><i class="fas fa-paper-plane"></i> Launch Campaign</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById("back-to-dashboard-btn").addEventListener("click", function() {
+            window.location.href = "/page/campaign-dashboard"; // Redirect to the dashboard page
+        });
+    </script>
+</body>
+</html>

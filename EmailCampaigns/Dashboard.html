@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: rgba(15, 23, 42, 0.08);
+            --accent: #2563eb;
+            --accent-2: #06b6d4;
+        }
+
+        .mf-dashboard {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--ink);
+            background: radial-gradient(circle at 20% 10%, #e6f0ff 0%, rgba(230, 240, 255, 0) 45%),
+                radial-gradient(circle at 90% 15%, #f0fbff 0%, rgba(240, 251, 255, 0) 40%),
+                linear-gradient(135deg, #f8fafc 0%, #eef2f7 50%, #e5e7eb 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .mf-dashboard * {
+            box-sizing: border-box;
+        }
+
+        .mf-page-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mf-page-bg .mf-orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .mf-page-bg .mf-orb-1 {
+            width: 240px;
+            height: 240px;
+            top: -60px;
+            left: -40px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0) 70%);
+        }
+
+        .mf-page-bg .mf-orb-2 {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            right: -120px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(6, 182, 212, 0) 70%);
+            animation-delay: -4s;
+        }
+
+        .mf-page-bg .mf-orb-3 {
+            width: 220px;
+            height: 220px;
+            bottom: -90px;
+            left: 20%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 70%);
+            animation-delay: -7s;
+        }
+
+        .mf-shell {
+            position: relative;
+            z-index: 1;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .mf-hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;
+            animation: rise 0.6s ease-out;
+        }
+
+        .mf-hero h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: clamp(2.2rem, 3vw, 2.9rem);
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .mf-hero-sub {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0.35rem 0 0;
+        }
+
+        .mf-btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+            box-shadow: 0 18px 30px rgba(37, 99, 235, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            color: #ffffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            cursor: pointer;
+        }
+
+        .mf-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 36px rgba(37, 99, 235, 0.32);
+        }
+
+        .mf-btn-ghost {
+            background: rgba(37, 99, 235, 0.08);
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            font-weight: 600;
+            color: #1d4ed8;
+            cursor: pointer;
+        }
+
+        .mf-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+            animation: fade 0.7s ease-out;
+        }
+
+        .mf-stat-card {
+            position: relative;
+            border: 1px solid var(--line);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            overflow: hidden;
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .mf-stat-card::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .mf-stat-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(37, 99, 235, 0.35);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.18);
+        }
+
+        .mf-stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .mf-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .mf-label {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mf-card-main {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .mf-card-main h2 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .mf-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+        }
+
+        .mf-pill-up {
+            background: #ecfdf3;
+            color: #047857;
+        }
+
+        .mf-pill-down {
+            background: #fff1f2;
+            color: #be123c;
+        }
+
+        .mf-note {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .mf-stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .mf-stat-card:hover .mf-stat-icon {
+            transform: scale(1.08) rotate(6deg);
+        }
+
+        .mf-icon-blue {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .mf-icon-purple {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .mf-icon-indigo {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .mf-icon-emerald {
+            background: #ecfdf3;
+            color: #047857;
+        }
+
+        .mf-table-card {
+            border: 1px solid var(--line);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .mf-section-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .mf-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .mf-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .mf-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mf-table thead {
+            background: linear-gradient(90deg, rgba(248, 250, 252, 0.95), rgba(238, 242, 255, 0.85));
+        }
+
+        .mf-table th,
+        .mf-table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 1rem 1rem;
+        }
+
+        .mf-table th {
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 700;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .mf-table td {
+            font-size: 0.95rem;
+            color: #0f172a;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        .mf-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mf-table-row {
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .mf-table-row:hover {
+            transform: translateX(6px);
+            background: rgba(248, 250, 252, 0.8);
+        }
+
+        .mf-row-title {
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 0.25rem;
+        }
+
+        .mf-row-sub {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .mf-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 0.65rem 1.05rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .mf-meta {
+            color: #475569;
+            font-size: 0.92rem;
+        }
+
+        .campaign-dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(18px);
+            }
+        }
+
+        @media (min-width: 640px) {
+            .mf-hero {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mf-stat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mf-stat-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body class="mf-dashboard">
+
+    <div class="mf-page-bg" aria-hidden="true">
+        <span class="mf-orb mf-orb-1"></span>
+        <span class="mf-orb mf-orb-2"></span>
+        <span class="mf-orb mf-orb-3"></span>
+    </div>
+
+    <div class="mf-shell">
+        <header class="mf-hero">
+            <div>
+                <h1>Campaign Overview</h1>
+                <p class="mf-hero-sub">Monitor your email and SMS campaign performance.</p>
+            </div>
+        </header>
+
+        <div class="mf-stat-grid">
+            <div class="mf-stat-card">
+                <div class="mf-card-top">
+                    <h3 class="mf-label">Total Contacts</h3>
+                    <div class="mf-stat-icon mf-icon-blue"><i class="fas fa-users"></i></div>
+                </div>
+                <div class="mf-card-main">
+                    <h2>[[[COUNT(SELECT("contacts","name"))]]]</h2>
+                    <span class="mf-pill mf-pill-up"><i class="fas fa-arrow-up"></i>2.4%</span>
+                </div>
+            </div>
+
+            <div class="mf-stat-card">
+                <div class="mf-card-top">
+                    <h3 class="mf-label">Active Campaigns</h3>
+                    <div class="mf-stat-icon mf-icon-purple"><i class="fas fa-bullhorn"></i></div>
+                </div>
+                <div class="mf-card-main">
+                    <h2>[[[COUNT(SELECT("campaigns","name","active",1))]]]</h2>
+                    <span class="mf-note">Currently running</span>
+                </div>
+            </div>
+
+            <div class="mf-stat-card">
+                <div class="mf-card-top">
+                    <h3 class="mf-label">Total Sent (30d)</h3>
+                    <div class="mf-stat-icon mf-icon-indigo"><i class="fas fa-paper-plane"></i></div>
+                </div>
+                <div class="mf-card-main">
+                    <h2>45.2k</h2>
+                    <span class="mf-pill mf-pill-up"><i class="fas fa-arrow-up"></i>12%</span>
+                </div>
+            </div>
+
+            <div class="mf-stat-card">
+                <div class="mf-card-top">
+                    <h3 class="mf-label">Avg. Delivery Rate</h3>
+                    <div class="mf-stat-icon mf-icon-emerald"><i class="fas fa-check-circle"></i></div>
+                </div>
+                <div class="mf-card-main">
+                    <h2>98.4%</h2>
+                    <span class="mf-pill mf-pill-down"><i class="fas fa-arrow-down"></i>0.2%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mf-table-card">
+            <div class="mf-section-card-header">
+                <h3 class="mf-section-title">Campaigns</h3>
+                <div style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
+                    <input id="campaigns-search" type="text" placeholder="Search campaigns…" style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
+                    <button id="campaigns-search-btn" style="margin-right:3px; border:none; border-radius:5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i class="fas fa-search" style="font-size:0.8rem;"></i></button>
+                </div>
+            </div>
+            <div class="mf-table-wrapper" style="max-height:400px; overflow-y:auto;">
+                <table class="mf-table">
+                    <thead style="position:sticky; top:0; z-index:2;">
+                        <tr>
+                            <th>Campaign Name</th>
+                            <th>Type</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="campaigns-tbody">
+                        <tr class="mf-table-row">
+                            <td colspan="4" style="text-align:center; padding:2rem; color:#94a3b8;">
+                                <i class="fas fa-spinner fa-spin" style="margin-right:0.5rem;"></i>Loading campaigns…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mf-table-card">
+            <div class="mf-section-card-header">
+                <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; flex:1;">
+                    <h3 class="mf-section-title">Contacts</h3>
+                    <span id="contacts-selection-count" style="font-size:0.85rem; color:#64748b; font-weight:600; display:none;">0 selected</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
+                        <input id="contacts-search" type="text" placeholder="Search contacts…" style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
+                        <button id="contacts-search-btn" style="margin-right:3px; border:none; border-radius: 5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i class="fas fa-search" style="font-size:0.8rem;"></i></button>
+                    </div>
+                    <div style="position:relative; display:inline-block;">
+                        <button id="add-to-campaign-btn" class="mf-btn-ghost"><i class="fas fa-plus" style="margin-right:0.35rem; font-size:0.75rem;"></i>Add To Campaign</button>
+                        <div id="campaign-dropdown" style="display:none; position:fixed; min-width:280px; background:#fff; border:1px solid #e2e8f0; border-radius:12px; box-shadow:0 12px 30px rgba(15,23,42,0.12); z-index:9999; overflow:hidden;">
+                            <div style="padding:0.65rem 1rem; border-bottom:1px solid #f1f5f9; font-size:0.8rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.05em;">Select Campaigns</div>
+                            <div id="campaign-dropdown-list" style="max-height:220px; overflow-y:auto;"></div>
+                            <div style="padding:0.5rem 0.75rem; border-top:1px solid #f1f5f9; display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                                <span id="campaign-selection-count" style="font-size:0.8rem; color:#64748b; font-weight:600;">0 selected</span>
+                                <button id="confirm-add-campaigns-btn" style="background:linear-gradient(135deg,#2563eb 0%,#38bdf8 100%); color:#fff; border:none; border-radius:8px; padding:0.4rem 1rem; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mf-table-wrapper" style="max-height:480px; overflow-y:auto;">
+                <table class="mf-table">
+                    <thead style="position:sticky; top:0; z-index:2;">
+                        <tr>
+                            <th style="width:40px; text-align:center;"><input type="checkbox" id="contacts-select-all" style="cursor:pointer;"></th>
+                            <th>Contact Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contacts-tbody">
+                        <tr class="mf-table-row">
+                            <td colspan="4" style="text-align:center; padding:2rem; color:#94a3b8;">
+                                <i class="fas fa-spinner fa-spin" style="margin-right:0.5rem;"></i>Loading contacts…
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ── State ── */
+        let allContacts  = [];
+        let allCampaigns = [];
+        const selectedContactIds  = new Set();
+        const selectedCampaignIds = new Set();
+
+        /* ── Chip colour palette ── */
+        const CHIP_COLORS = {
+            green:  { bg: '#ecfdf3', color: '#047857', border: '#bbf7d0' },
+            indigo: { bg: '#eef2ff', color: '#4f46e5', border: '#c7d2fe' },
+            sky:    { bg: '#f0f9ff', color: '#0369a1', border: '#bae6fd' },
+            amber:  { bg: '#fff7ed', color: '#b45309', border: '#fed7aa' },
+            gray:   { bg: '#f8fafc', color: '#475569', border: '#e2e8f0', dot: '#94a3b8' },
+        };
+
+        /**
+         * Universal SweetAlert wrapper.
+         * Detects SweetAlert2 (Swal.fire), SweetAlert v1 (swal), or falls back to native alert().
+         */
+        function showSwal(title, text, icon) {
+            try {
+                if (typeof Swal !== 'undefined' && typeof Swal.fire === 'function') {
+                    Swal.fire({ title: title, text: text, icon: icon });
+                } else if (typeof swal === 'function') {
+                    swal(title, text, icon);
+                } else {
+                    alert(title + (text ? '\n' + text : ''));
+                }
+            } catch (e) {
+                console.error('SweetAlert error:', e);
+                alert(title + (text ? '\n' + text : ''));
+            }
+        }
+
+        /* ── DOM refs (cached once) ── */
+        const $ = (id) => document.getElementById(id);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput   = $('contacts-search');
+            const searchBtn     = $('contacts-search-btn');
+            const selectAllCb   = $('contacts-select-all');
+            const addBtn        = $('add-to-campaign-btn');
+            const tbody         = $('contacts-tbody');
+
+            loadContacts();
+            loadCampaigns();
+
+            /* Campaign search — live as-you-type + Enter + button click */
+            const campaignSearchInput = $('campaigns-search');
+            const campaignSearchBtn   = $('campaigns-search-btn');
+            campaignSearchInput.addEventListener('input', filterAndRenderCampaigns);
+            campaignSearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') filterAndRenderCampaigns();
+            });
+            campaignSearchBtn.addEventListener('click', filterAndRenderCampaigns);
+
+            /* Campaign row click delegation */
+            $('campaigns-tbody').addEventListener('click', (e) => {
+                const row = e.target.closest('tr[data-campaign-id]');
+                if (row) window.location.href = `/detail-view/campaigns/${row.dataset.campaignId}`;
+            });
+
+            /* Search — live as-you-type + Enter + button click */
+            searchInput.addEventListener('input', filterAndRenderContacts);
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') filterAndRenderContacts();
+            });
+            searchBtn.addEventListener('click', filterAndRenderContacts);
+
+            /* Select-all toggle */
+            selectAllCb.addEventListener('change', (e) => {
+                tbody.querySelectorAll('.contact-checkbox').forEach(cb => {
+                    cb.checked = e.target.checked;
+                    if (e.target.checked) {
+                        selectedContactIds.add(cb.dataset.contactId);
+                    } else {
+                        selectedContactIds.delete(cb.dataset.contactId);
+                    }
+                });
+                updateSelectionCount();
+            });
+
+            /* Checkbox delegation — avoids re-attaching listeners on every render */
+            tbody.addEventListener('change', (e) => {
+                if (!e.target.classList.contains('contact-checkbox')) return;
+                const cid = e.target.dataset.contactId;
+                e.target.checked ? selectedContactIds.add(cid) : selectedContactIds.delete(cid);
+                syncSelectAll();
+                updateSelectionCount();
+            });
+
+            /* Add To Campaign — toggle dropdown */
+            const dropdown = $('campaign-dropdown');
+
+            addBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (selectedContactIds.size === 0) {
+                    showSwal('No Contacts Selected', 'Please select at least one contact to add to a campaign.', 'warning');
+                    return;
+                }
+                populateCampaignDropdown();
+                if (!allCampaigns.length) {
+                    showSwal('No Campaigns Available', 'There are no campaigns to add contacts to. Please create a campaign first.', 'info');
+                    return;
+                }
+                const isHidden = dropdown.style.display === 'none';
+                if (isHidden) {
+                    const rect = addBtn.getBoundingClientRect();
+                    dropdown.style.top  = (rect.bottom + 6) + 'px';
+                    dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+                    dropdown.style.left = '';
+                    dropdown.style.display = 'block';
+                } else {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            /* Confirm — add selected contacts to all checked campaigns */
+            $('confirm-add-campaigns-btn').addEventListener('click', () => {
+                if (selectedCampaignIds.size === 0) {
+                    showSwal('No Campaigns Selected', 'Please select at least one campaign.', 'warning');
+                    return;
+                }
+                dropdown.style.display = 'none';
+                addContactsToMultipleCampaigns(Array.from(selectedCampaignIds), Array.from(selectedContactIds));
+            });
+
+            /* Close dropdown when clicking outside */
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target) && e.target !== addBtn) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        });
+
+        /* ── Helpers ── */
+
+        /** Prevent XSS when interpolating user-sourced data into HTML. */
+        function esc(str) {
+            const el = document.createElement('span');
+            el.textContent = str;
+            return el.innerHTML;
+        }
+
+        /** Build a pill chip with a coloured dot. `palette` is a key in CHIP_COLORS. */
+        function buildChip(palette, label) {
+            const c   = CHIP_COLORS[palette] || CHIP_COLORS.gray;
+            const dot = c.dot || c.color;
+            return `<span class="mf-chip" style="background:${c.bg};color:${c.color};border-color:${c.border};border-radius:999px;padding:0.25rem 0.65rem;"><span style="margin-right:6px;width:6px;height:6px;border-radius:50%;background:${dot};display:inline-block;"></span>${esc(label)}</span>`;
+        }
+
+        function updateSelectionCount() {
+            const badge = $('contacts-selection-count');
+            const n = selectedContactIds.size;
+            badge.textContent = `${n} selected`;
+            badge.style.display = n > 0 ? 'inline' : 'none';
+        }
+
+        function populateCampaignDropdown() {
+            const list = $('campaign-dropdown-list');
+            selectedCampaignIds.clear();
+            updateCampaignSelectionCount();
+
+            if (!allCampaigns.length) {
+                list.innerHTML = '<div style="padding:1rem; text-align:center; color:#94a3b8; font-size:0.85rem;">No campaigns available.</div>';
+                return;
+            }
+            list.innerHTML = allCampaigns.map(c => {
+                const name = esc(c.name || '\u2014');
+                const statusDot = c.active === 1
+                    ? '<span style="width:6px;height:6px;border-radius:50%;background:#047857;display:inline-block;"></span>'
+                    : '<span style="width:6px;height:6px;border-radius:50%;background:#94a3b8;display:inline-block;"></span>';
+                return `<label class="campaign-dropdown-item" data-campaign-id="${esc(c.id)}" data-campaign-name="${name}"
+                    style="padding:0.6rem 1rem; cursor:pointer; display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; transition:background 0.15s;">
+                    <input type="checkbox" class="campaign-checkbox" data-campaign-id="${esc(c.id)}" style="cursor:pointer; flex-shrink:0;">
+                    ${statusDot}
+                    <span style="font-weight:600; color:#0f172a;">${name}</span>
+                </label>`;
+            }).join('');
+
+            /* Checkbox delegation for campaign multi-select */
+            list.querySelectorAll('.campaign-checkbox').forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const cid = cb.dataset.campaignId;
+                    cb.checked ? selectedCampaignIds.add(cid) : selectedCampaignIds.delete(cid);
+                    updateCampaignSelectionCount();
+                });
+            });
+        }
+
+        function updateCampaignSelectionCount() {
+            const badge = $('campaign-selection-count');
+            if (badge) badge.textContent = `${selectedCampaignIds.size} selected`;
+        }
+
+        function syncSelectAll() {
+            const tbody    = $('contacts-tbody');
+            const all      = tbody.querySelectorAll('.contact-checkbox');
+            const checked  = tbody.querySelectorAll('.contact-checkbox:checked');
+            $('contacts-select-all').checked = all.length > 0 && all.length === checked.length;
+        }
+
+        /* ── Filtering & Rendering ── */
+
+        function filterAndRenderCampaigns() {
+            const query = $('campaigns-search').value.trim().toLowerCase();
+            const filtered = query
+                ? allCampaigns.filter(c => {
+                    const name = (c.name || '').toLowerCase();
+                    const type = (c.type || '').toLowerCase();
+                    return name.includes(query) || type.includes(query);
+                })
+                : allCampaigns;
+            renderCampaignRows(filtered);
+        }
+
+        function filterAndRenderContacts() {
+            const query = $('contacts-search').value.trim().toLowerCase();
+            const filtered = query
+                ? allContacts.filter(c => {
+                    const name  = (c.name || `${c.first_name || ''} ${c.last_name || ''}`).toLowerCase();
+                    const email = (c.email || '').toLowerCase();
+                    return name.includes(query) || email.includes(query);
+                })
+                : allContacts;
+            renderContactRows(filtered);
+        }
+
+        function renderContactRows(contacts) {
+            const tbody = $('contacts-tbody');
+
+            if (!contacts.length) {
+                tbody.innerHTML = `
+                    <tr class="mf-table-row">
+                        <td colspan="4" style="text-align:center; padding:2rem; color:#94a3b8;">
+                            No contacts found.
+                        </td>
+                    </tr>`;
+                $('contacts-select-all').checked = false;
+                return;
+            }
+
+            tbody.innerHTML = contacts.map(contact => {
+                const name    = esc(contact.name || `${contact.first_name || ''} ${contact.last_name || ''}`.trim() || '\u2014');
+                const email   = esc(contact.email || '\u2014');
+                const id      = contact.id || '';
+                const checked = selectedContactIds.has(id) ? 'checked' : '';
+
+                // Type chip based on contact type
+                const contactType = (contact.type || '').toLowerCase();
+                const typePalette = { employee: 'green', customer: 'indigo', partner: 'sky', contractor: 'amber' }[contactType] || 'gray';
+                const typeChip = buildChip(typePalette, contact.type || '\u2014');
+
+                return `
+                    <tr class="mf-table-row">
+                        <td style="width:40px; text-align:center;">
+                            <input type="checkbox" class="contact-checkbox" data-contact-id="${esc(id)}" ${checked} style="cursor:pointer;">
+                        </td>
+                        <td>
+                            <p class="mf-row-title">${name}</p>
+                            <p class="mf-row-sub">ID: ${esc(id || '\u2014')}</p>
+                        </td>
+                        <td><span class="mf-meta">${email}</span></td>
+                        <td>
+                            ${typeChip}
+                        </td>
+                    </tr>`;
+            }).join('');
+
+            syncSelectAll();
+        }
+
+        /* ── Data Loading ── */
+
+        function loadContacts() {
+            const tbody = $('contacts-tbody');
+
+            fetch('/preview-expression', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    expression_field: 'invalid_error',
+                    field_id: '178cc5a0-7998-4ba9-b695-97f63149d8ca',
+                    fields: {}
+                })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                const raw = Array.isArray(data) ? data : (data.result || data.data || []);
+                allContacts = raw.filter(c => {
+                    const s = (c.status || '').toLowerCase();
+                    return s !== 'inactive' && s !== 'terminated';
+                });
+                renderContactRows(allContacts);
+            })
+            .catch(err => {
+                console.error('Error loading contacts:', err);
+                tbody.innerHTML = `
+                    <tr class="mf-table-row">
+                        <td colspan="4" style="text-align:center; padding:2rem; color:#be123c;">
+                            <i class="fas fa-exclamation-triangle" style="margin-right:0.5rem;"></i>Failed to load contacts.
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function loadCampaigns() {
+            const tbody = $('campaigns-tbody');
+
+            fetch('/preview-expression', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    expression_field: 'invalid_error',
+                    field_id: '0c65c730-4ee6-45d0-a385-d835347654cd',
+                    fields: {}
+                })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                allCampaigns = Array.isArray(data) ? data : (data.result || data.data || []);
+                renderCampaignRows(allCampaigns);
+            })
+            .catch(err => {
+                console.error('Error loading campaigns:', err);
+                tbody.innerHTML = `
+                    <tr class="mf-table-row">
+                        <td colspan="4" style="text-align:center; padding:2rem; color:#be123c;">
+                            <i class="fas fa-exclamation-triangle" style="margin-right:0.5rem;"></i>Failed to load campaigns.
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderCampaignRows(campaigns) {
+            const tbody = $('campaigns-tbody');
+
+            if (!campaigns.length) {
+                tbody.innerHTML = `
+                    <tr class="mf-table-row">
+                        <td colspan="4" style="text-align:center; padding:2rem; color:#94a3b8;">
+                            No campaigns found.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            tbody.innerHTML = campaigns.map(campaign => {
+                const name    = esc(campaign.name || '\u2014');
+                const id      = campaign.id || '';
+                const type    = campaign.type || '';
+                const typeLower = type.toLowerCase();
+                const typePalette = { email: 'indigo', sms: 'sky' }[typeLower] || 'gray';
+                const typeBadge = buildChip(typePalette, type || '\u2014');
+
+                // Format created date
+                let createdStr = '\u2014';
+                if (campaign.created_on) {
+                    const d = new Date(campaign.created_on);
+                    if (!isNaN(d)) createdStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                }
+
+                // Status chip
+                const campaignStatusChip = buildChip(campaign.active === 1 ? 'green' : 'gray', campaign.active === 1 ? 'Active' : 'Inactive');
+
+                return `
+                    <tr class="mf-table-row" data-campaign-id="${esc(id)}" style="cursor:pointer;">
+                        <td>
+                            <p class="mf-row-title">${name}</p>
+                            <p class="mf-row-sub">ID: ${esc(id || '\u2014')}</p>
+                        </td>
+                        <td>
+                            ${typeBadge}
+                        </td>
+                        <td><span class="mf-meta">${esc(createdStr)}</span></td>
+                        <td>
+                            ${campaignStatusChip}
+                        </td>
+                    </tr>`;
+            }).join('');
+        }
+
+        async function addContactsToCampaign(campaignId, contactIds) {
+            if (!campaignId) {
+                showSwal('Missing Campaign', 'No campaign was specified.', 'error');
+                return;
+            }
+            if (!contactIds.length) {
+                showSwal('No Contacts Selected', 'Please select at least one contact.', 'warning');
+                return;
+            }
+            try {
+                const results = await Promise.all(
+                    contactIds.map(contactId =>
+                        fetch('/api/campaign_members/create', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ campaign_id: campaignId, contact_id: contactId, active: 1 })
+                        })
+                    )
+                );
+                const failed = results.filter(r => !r.ok).length;
+                if (failed === 0) {
+                    showSwal('Success', `Successfully added ${contactIds.length} contact(s) to campaign.`, 'success');
+                } else {
+                    showSwal('Partial Success', `Added ${contactIds.length - failed} contact(s). ${failed} failed.`, 'warning');
+                }
+                // Clear selection
+                selectedContactIds.clear();
+                updateSelectionCount();
+                $('contacts-select-all').checked = false;
+                $('contacts-tbody').querySelectorAll('.contact-checkbox').forEach(cb => cb.checked = false);
+            } catch (error) {
+                console.error('Error adding contacts to campaign:', error);
+                showSwal('Error', 'Failed to add contacts to campaign.', 'error');
+            }
+        }
+
+        /**
+         * Add selected contacts to multiple campaigns at once.
+         * Fires all API calls in parallel, then reports a single summary.
+         */
+        async function addContactsToMultipleCampaigns(campaignIds, contactIds) {
+            if (!campaignIds.length) {
+                showSwal('No Campaigns Selected', 'Please select at least one campaign.', 'warning');
+                return;
+            }
+            if (!contactIds.length) {
+                showSwal('No Contacts Selected', 'Please select at least one contact.', 'warning');
+                return;
+            }
+
+            /* Prevent double-clicks while in-flight */
+            const confirmBtn = $('confirm-add-campaigns-btn');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Adding…';
+
+            const totalOps = campaignIds.length * contactIds.length;
+            let succeeded = 0;
+            let failed    = 0;
+
+            try {
+                const results = await Promise.all(
+                    campaignIds.flatMap(campaignId =>
+                        contactIds.map(contactId =>
+                            fetch('/api/campaign_members/create', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ campaign_id: campaignId, contact_id: contactId, active: 1 })
+                            })
+                        )
+                    )
+                );
+
+                results.forEach(r => r.ok ? succeeded++ : failed++);
+
+                if (failed === 0) {
+                    showSwal('Success', `Successfully added ${contactIds.length} contact(s) to ${campaignIds.length} campaign(s).`, 'success');
+                } else {
+                    showSwal('Partial Success', `${succeeded} of ${totalOps} assignments succeeded. ${failed} failed.`, 'warning');
+                }
+
+                // Clear selections
+                selectedContactIds.clear();
+                selectedCampaignIds.clear();
+                updateSelectionCount();
+                updateCampaignSelectionCount();
+                $('contacts-select-all').checked = false;
+                $('contacts-tbody').querySelectorAll('.contact-checkbox').forEach(cb => cb.checked = false);
+            } catch (error) {
+                console.error('Error adding contacts to campaigns:', error);
+                showSwal('Error', 'Failed to add contacts to campaigns.', 'error');
+            } finally {
+                /* Re-enable confirm button */
+                const confirmBtn = $('confirm-add-campaigns-btn');
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = 'Confirm';
+            }
+        }
+    </script>
+</body>
+
+</html>

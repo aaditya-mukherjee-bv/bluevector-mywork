@@ -1,0 +1,34 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.env
+venv/
+env/
+
+# Secrets & credentials
+github-recovery-codes.txt
+*.key
+*.pem
+
+# Logs
+*.log
+
+# Node (if ever added)
+node_modules/

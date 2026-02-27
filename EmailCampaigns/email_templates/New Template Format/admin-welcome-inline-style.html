@@ -250,6 +250,7 @@
     </style>
   </head>
   <body id="i23f">
+    <!-- <input id="campaign_id" type="hidden" value="[[[LOOKUP('[[campaign_id]]','campaigns','name','id')]]]"/> -->
     <div class="email-wrapper">
       <div class="email-header">
         <a style="text-decoration: none;"
@@ -265,7 +266,7 @@
         </h1>
       </div>
       <div class="email-body">
-        <p id="iuejs">Hello [[name]],
+        <p id="iuejs">Hello $first_name,
         </p>
         <p>
           Welcome to SnapApp — we're excited to have you here.
@@ -289,7 +290,6 @@
             </a>— Short walkthroughs to help you build fast.
           </div>
           <div class="resource-item">
-            
             <a style="text-decoration: none;"
               href="https://snapapp.com/kb/docs/snapapp-fundamentals?app=1a5f1d73-f672-441e-b66d-09b5243bb1e6">
               <strong id="i8yxh">Documentation</strong>
@@ -349,9 +349,17 @@
       <div class="footer">
         <div>You are receiving these emails to help make the SnapApp on boarding process easier. They will stop
           automatically when your trial ends.</div>
-        <div>© SnapApp • <a class="footer-link" style="text-decoration: none;"
-            href="https://snapapp.com/page/unsubscribe">Unsubscribe</a></div>
+        <div>© SnapApp • 
+          <a id="unsubscribe-link" class="footer-link" style="text-decoration: none;"
+            href="https://bluevector.snapapp.com/page/unsubscribe?">Unsubscribe
+          </a></div>
       </div>
     </div>
+    <!-- <script>
+        const unsubscribeLink = document.getElementById('unsubscribe-link');
+        const campaignId = document.getElementById('campaign_id').value;
+        unsubscribeLink.href += `&campaign_id=${campaignId}`;
+        console.log('Unsubscribe link updated with campaign ID:', unsubscribeLink.href);
+    </script> -->
   </body>
 </html>
