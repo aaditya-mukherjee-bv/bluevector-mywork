@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campaign Dashboard</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
@@ -490,9 +489,13 @@
         <div class="mf-table-card">
             <div class="mf-section-card-header">
                 <h3 class="mf-section-title">Campaigns</h3>
-                <div style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
-                    <input id="campaigns-search" type="text" placeholder="Search campaigns…" style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
-                    <button id="campaigns-search-btn" style="margin-right:3px; border:none; border-radius:5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i class="fas fa-search" style="font-size:0.8rem;"></i></button>
+                <div
+                    style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
+                    <input id="campaigns-search" type="text" placeholder="Search campaigns…"
+                        style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
+                    <button id="campaigns-search-btn"
+                        style="margin-right:3px; border:none; border-radius:5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i
+                            class="fas fa-search" style="font-size:0.8rem;"></i></button>
                 </div>
             </div>
             <div class="mf-table-wrapper" style="max-height:400px; overflow-y:auto;">
@@ -520,21 +523,35 @@
             <div class="mf-section-card-header">
                 <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; flex:1;">
                     <h3 class="mf-section-title">Contacts</h3>
-                    <span id="contacts-selection-count" style="font-size:0.85rem; color:#64748b; font-weight:600; display:none;">0 selected</span>
+                    <span id="contacts-selection-count"
+                        style="font-size:0.85rem; color:#64748b; font-weight:600; display:none;">0 selected</span>
                 </div>
                 <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-                    <div style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
-                        <input id="contacts-search" type="text" placeholder="Search contacts…" style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
-                        <button id="contacts-search-btn" style="margin-right:3px; border:none; border-radius: 5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i class="fas fa-search" style="font-size:0.8rem;"></i></button>
+                    <div
+                        style="display:flex; align-items:center; gap:0; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc;">
+                        <input id="contacts-search" type="text" placeholder="Search contacts…"
+                            style="border:none; outline:none; padding:0.45rem 0.75rem; font-size:0.85rem; font-family:inherit; background:transparent; min-width:160px;">
+                        <button id="contacts-search-btn"
+                            style="margin-right:3px; border:none; border-radius: 5px; background:#f8fafc; color:#2563eb; padding:0.45rem 0.65rem; cursor:pointer; display:inline-flex; align-items:center;"><i
+                                class="fas fa-search" style="font-size:0.8rem;"></i></button>
                     </div>
                     <div style="position:relative; display:inline-block;">
-                        <button id="add-to-campaign-btn" class="mf-btn-ghost"><i class="fas fa-plus" style="margin-right:0.35rem; font-size:0.75rem;"></i>Add To Campaign</button>
-                        <div id="campaign-dropdown" style="display:none; position:fixed; min-width:280px; background:#fff; border:1px solid #e2e8f0; border-radius:12px; box-shadow:0 12px 30px rgba(15,23,42,0.12); z-index:9999; overflow:hidden;">
-                            <div style="padding:0.65rem 1rem; border-bottom:1px solid #f1f5f9; font-size:0.8rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.05em;">Select Campaigns</div>
+                        <button id="add-to-campaign-btn" class="mf-btn-ghost"><i class="fas fa-plus"
+                                style="margin-right:0.35rem; font-size:0.75rem;"></i>Add To Campaign</button>
+                        <div id="campaign-dropdown"
+                            style="display:none; position:fixed; min-width:280px; background:#fff; border:1px solid #e2e8f0; border-radius:12px; box-shadow:0 12px 30px rgba(15,23,42,0.12); z-index:9999; overflow:hidden;">
+                            <div
+                                style="padding:0.65rem 1rem; border-bottom:1px solid #f1f5f9; font-size:0.8rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.05em;">
+                                Select Campaigns</div>
                             <div id="campaign-dropdown-list" style="max-height:220px; overflow-y:auto;"></div>
-                            <div style="padding:0.5rem 0.75rem; border-top:1px solid #f1f5f9; display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
-                                <span id="campaign-selection-count" style="font-size:0.8rem; color:#64748b; font-weight:600;">0 selected</span>
-                                <button id="confirm-add-campaigns-btn" style="background:linear-gradient(135deg,#2563eb 0%,#38bdf8 100%); color:#fff; border:none; border-radius:8px; padding:0.4rem 1rem; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Confirm</button>
+                            <div
+                                style="padding:0.5rem 0.75rem; border-top:1px solid #f1f5f9; display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+                                <span id="campaign-selection-count"
+                                    style="font-size:0.8rem; color:#64748b; font-weight:600;">0 selected</span>
+                                <button id="confirm-add-campaigns-btn"
+                                    style="background:linear-gradient(135deg,#2563eb 0%,#38bdf8 100%); color:#fff; border:none; border-radius:8px; padding:0.4rem 1rem; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity 0.2s;"
+                                    onmouseover="this.style.opacity='0.9'"
+                                    onmouseout="this.style.opacity='1'">Confirm</button>
                             </div>
                         </div>
                     </div>
@@ -544,7 +561,8 @@
                 <table class="mf-table">
                     <thead style="position:sticky; top:0; z-index:2;">
                         <tr>
-                            <th style="width:40px; text-align:center;"><input type="checkbox" id="contacts-select-all" style="cursor:pointer;"></th>
+                            <th style="width:40px; text-align:center;"><input type="checkbox" id="contacts-select-all"
+                                    style="cursor:pointer;"></th>
                             <th>Contact Name</th>
                             <th>Email</th>
                             <th>Type</th>
@@ -564,18 +582,18 @@
 
     <script>
         /* ── State ── */
-        let allContacts  = [];
+        let allContacts = [];
         let allCampaigns = [];
-        const selectedContactIds  = new Set();
+        const selectedContactIds = new Set();
         const selectedCampaignIds = new Set();
 
         /* ── Chip colour palette ── */
         const CHIP_COLORS = {
-            green:  { bg: '#ecfdf3', color: '#047857', border: '#bbf7d0' },
+            green: { bg: '#ecfdf3', color: '#047857', border: '#bbf7d0' },
             indigo: { bg: '#eef2ff', color: '#4f46e5', border: '#c7d2fe' },
-            sky:    { bg: '#f0f9ff', color: '#0369a1', border: '#bae6fd' },
-            amber:  { bg: '#fff7ed', color: '#b45309', border: '#fed7aa' },
-            gray:   { bg: '#f8fafc', color: '#475569', border: '#e2e8f0', dot: '#94a3b8' },
+            sky: { bg: '#f0f9ff', color: '#0369a1', border: '#bae6fd' },
+            amber: { bg: '#fff7ed', color: '#b45309', border: '#fed7aa' },
+            gray: { bg: '#f8fafc', color: '#475569', border: '#e2e8f0', dot: '#94a3b8' },
         };
 
         /**
@@ -601,18 +619,18 @@
         const $ = (id) => document.getElementById(id);
 
         document.addEventListener('DOMContentLoaded', () => {
-            const searchInput   = $('contacts-search');
-            const searchBtn     = $('contacts-search-btn');
-            const selectAllCb   = $('contacts-select-all');
-            const addBtn        = $('add-to-campaign-btn');
-            const tbody         = $('contacts-tbody');
+            const searchInput = $('contacts-search');
+            const searchBtn = $('contacts-search-btn');
+            const selectAllCb = $('contacts-select-all');
+            const addBtn = $('add-to-campaign-btn');
+            const tbody = $('contacts-tbody');
 
             loadContacts();
             loadCampaigns();
 
             /* Campaign search — live as-you-type + Enter + button click */
             const campaignSearchInput = $('campaigns-search');
-            const campaignSearchBtn   = $('campaigns-search-btn');
+            const campaignSearchBtn = $('campaigns-search-btn');
             campaignSearchInput.addEventListener('input', filterAndRenderCampaigns);
             campaignSearchInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') filterAndRenderCampaigns();
@@ -671,7 +689,7 @@
                 const isHidden = dropdown.style.display === 'none';
                 if (isHidden) {
                     const rect = addBtn.getBoundingClientRect();
-                    dropdown.style.top  = (rect.bottom + 6) + 'px';
+                    dropdown.style.top = (rect.bottom + 6) + 'px';
                     dropdown.style.right = (window.innerWidth - rect.right) + 'px';
                     dropdown.style.left = '';
                     dropdown.style.display = 'block';
@@ -709,7 +727,7 @@
 
         /** Build a pill chip with a coloured dot. `palette` is a key in CHIP_COLORS. */
         function buildChip(palette, label) {
-            const c   = CHIP_COLORS[palette] || CHIP_COLORS.gray;
+            const c = CHIP_COLORS[palette] || CHIP_COLORS.gray;
             const dot = c.dot || c.color;
             return `<span class="mf-chip" style="background:${c.bg};color:${c.color};border-color:${c.border};border-radius:999px;padding:0.25rem 0.65rem;"><span style="margin-right:6px;width:6px;height:6px;border-radius:50%;background:${dot};display:inline-block;"></span>${esc(label)}</span>`;
         }
@@ -759,9 +777,9 @@
         }
 
         function syncSelectAll() {
-            const tbody    = $('contacts-tbody');
-            const all      = tbody.querySelectorAll('.contact-checkbox');
-            const checked  = tbody.querySelectorAll('.contact-checkbox:checked');
+            const tbody = $('contacts-tbody');
+            const all = tbody.querySelectorAll('.contact-checkbox');
+            const checked = tbody.querySelectorAll('.contact-checkbox:checked');
             $('contacts-select-all').checked = all.length > 0 && all.length === checked.length;
         }
 
@@ -783,7 +801,7 @@
             const query = $('contacts-search').value.trim().toLowerCase();
             const filtered = query
                 ? allContacts.filter(c => {
-                    const name  = (c.name || `${c.first_name || ''} ${c.last_name || ''}`).toLowerCase();
+                    const name = (c.name || `${c.first_name || ''} ${c.last_name || ''}`).toLowerCase();
                     const email = (c.email || '').toLowerCase();
                     return name.includes(query) || email.includes(query);
                 })
@@ -806,9 +824,9 @@
             }
 
             tbody.innerHTML = contacts.map(contact => {
-                const name    = esc(contact.name || `${contact.first_name || ''} ${contact.last_name || ''}`.trim() || '\u2014');
-                const email   = esc(contact.email || '\u2014');
-                const id      = contact.id || '';
+                const name = esc(contact.name || `${contact.first_name || ''} ${contact.last_name || ''}`.trim() || '\u2014');
+                const email = esc(contact.email || '\u2014');
+                const id = contact.id || '';
                 const checked = selectedContactIds.has(id) ? 'checked' : '';
 
                 // Type chip based on contact type
@@ -840,8 +858,9 @@
         function loadContacts() {
             const tbody = $('contacts-tbody');
 
-            fetch('/preview-expression', {
+            csrfFetch('/preview-expression', {
                 method: 'POST',
+
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     expression_field: 'invalid_error',
@@ -849,33 +868,33 @@
                     fields: {}
                 })
             })
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json();
-            })
-            .then(data => {
-                const raw = Array.isArray(data) ? data : (data.result || data.data || []);
-                allContacts = raw.filter(c => {
-                    const s = (c.status || '').toLowerCase();
-                    return s !== 'inactive' && s !== 'terminated';
-                });
-                renderContactRows(allContacts);
-            })
-            .catch(err => {
-                console.error('Error loading contacts:', err);
-                tbody.innerHTML = `
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    const raw = Array.isArray(data) ? data : (data.result || data.data || []);
+                    allContacts = raw.filter(c => {
+                        const s = (c.status || '').toLowerCase();
+                        return s !== 'inactive' && s !== 'terminated';
+                    });
+                    renderContactRows(allContacts);
+                })
+                .catch(err => {
+                    console.error('Error loading contacts:', err);
+                    tbody.innerHTML = `
                     <tr class="mf-table-row">
                         <td colspan="4" style="text-align:center; padding:2rem; color:#be123c;">
                             <i class="fas fa-exclamation-triangle" style="margin-right:0.5rem;"></i>Failed to load contacts.
                         </td>
                     </tr>`;
-            });
+                });
         }
 
         function loadCampaigns() {
             const tbody = $('campaigns-tbody');
 
-            fetch('/preview-expression', {
+            csrfFetch('/preview-expression', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -884,23 +903,23 @@
                     fields: {}
                 })
             })
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json();
-            })
-            .then(data => {
-                allCampaigns = Array.isArray(data) ? data : (data.result || data.data || []);
-                renderCampaignRows(allCampaigns);
-            })
-            .catch(err => {
-                console.error('Error loading campaigns:', err);
-                tbody.innerHTML = `
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    allCampaigns = Array.isArray(data) ? data : (data.result || data.data || []);
+                    renderCampaignRows(allCampaigns);
+                })
+                .catch(err => {
+                    console.error('Error loading campaigns:', err);
+                    tbody.innerHTML = `
                     <tr class="mf-table-row">
                         <td colspan="4" style="text-align:center; padding:2rem; color:#be123c;">
                             <i class="fas fa-exclamation-triangle" style="margin-right:0.5rem;"></i>Failed to load campaigns.
                         </td>
                     </tr>`;
-            });
+                });
         }
 
         function renderCampaignRows(campaigns) {
@@ -917,9 +936,9 @@
             }
 
             tbody.innerHTML = campaigns.map(campaign => {
-                const name    = esc(campaign.name || '\u2014');
-                const id      = campaign.id || '';
-                const type    = campaign.type || '';
+                const name = esc(campaign.name || '\u2014');
+                const id = campaign.id || '';
+                const type = campaign.type || '';
                 const typeLower = type.toLowerCase();
                 const typePalette = { email: 'indigo', sms: 'sky' }[typeLower] || 'gray';
                 const typeBadge = buildChip(typePalette, type || '\u2014');
@@ -1008,7 +1027,7 @@
 
             const totalOps = campaignIds.length * contactIds.length;
             let succeeded = 0;
-            let failed    = 0;
+            let failed = 0;
 
             try {
                 const results = await Promise.all(

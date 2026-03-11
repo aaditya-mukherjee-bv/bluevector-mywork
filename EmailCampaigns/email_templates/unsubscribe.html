@@ -128,7 +128,7 @@
                 button.style.opacity = '0.7';
                 button.style.pointerEvents = 'none';
         
-                fetch('/preview-expression', {
+                csrfFetch('/preview-expression', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
